@@ -1,0 +1,37 @@
+suricata:
+    build: suricata
+    volumes:
+        - ./config/suricata/suricata.yaml:/etc/suricata/suricata.yaml
+        - ./data/suricata:/var/log/suricata:rw
+        - ./data/scirius/:/etc/suricata/rules:ro
+    privileged: true
+    net: host
+
+elasticsearch:
+    image: elasticsearch
+    volumes:
+        - ./data/elasticsearch:/usr/share/elasticsearch/data
+
+logstash:
+    image: logstash
+    links:
+        - elasticsearch
+    command: -f /etc/logstash/logstash.conf
+    volumes:
+        - ./config/logstash:/etc/logstash
+        - ./data/suricata:/var/log/suricata:ro
+
+kibana:
+    image: kibana
+    ports:
+     - 5601:5601
+    links:
+        - elasticsearch
+
+#scirius:
+#    build: scirius
+#    volumes:
+#        - ./config/scirius:/etc/scirius
+#        - ./data/scirius:/etc/suricata/rules
+#    volumes_from:
+#        - datasuri
