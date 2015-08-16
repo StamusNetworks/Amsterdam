@@ -7,6 +7,7 @@ suricata:
     privileged: true
     net: host
     command: --af-packet=wlan0
+    hostname: suricata
 
 elasticsearch:
     image: elasticsearch
@@ -29,10 +30,14 @@ kibana:
     links:
         - elasticsearch
 
-#scirius:
-#    build: scirius
-#    volumes:
-#        - ./config/scirius:/etc/scirius
-#        - ./data/scirius:/etc/suricata/rules
-#    volumes_from:
-#        - datasuri
+scirius:
+    build: scirius
+    ports:
+     - 8000:8000
+    volumes:
+        - ./config/scirius:/etc/scirius
+        - ./data/scirius:/etc/suricata/rules
+        - ./data/sciriusdb:/opt/selks/sciriusdb
+    links:
+        - elasticsearch
+        - kibana
