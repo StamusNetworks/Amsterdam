@@ -7,4 +7,4 @@ run wget -O – -q http://packages.stamus-networks.com/packages.stamus-networks.
 run apt-get update
 run DEBIAN_FRONTEND=noninteractive apt-get install -y suricata
 
-CMD ["/usr/bin/suricata", "--af-packet"]
+ENTRYPOINT ["/usr/bin/suricata"]

@@ -6,11 +6,12 @@ suricata:
         - ./data/scirius/:/etc/suricata/rules:ro
     privileged: true
     net: host
+    command: --af-packet=wlan0
 
 elasticsearch:
     image: elasticsearch
     volumes:
-        - ./data/elasticsearch:/usr/share/elasticsearch/data
+        - ./data/elasticsearch:/usr/share/elasticsearch/data:rw
 
 logstash:
     image: logstash

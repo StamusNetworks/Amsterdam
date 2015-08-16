@@ -403,7 +403,7 @@ nflog:
 # af-packet support
 # Set threads to > 1 to use PACKET_FANOUT support
 af-packet:
-  - interface: wlan0
+  - interface: eth0
     # Number of receive threads. "auto" uses the number of cores
     threads: auto
     # Default clusterid.  AF_PACKET will load balance packets based on flow.
@@ -469,8 +469,10 @@ af-packet:
     #copy-iface: eth1
   # Put default values here
   - interface: default
-    #threads: auto
-    #use-mmap: yes
+    threads: auto
+    use-mmap: yes
+    cluster-type: cluster_flow
+    defrag: yes
     #rollover: yes
 
 # Netmap support
