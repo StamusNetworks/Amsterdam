@@ -1,25 +1,14 @@
-scirius:
-    build: scirius
-    ports:
-     - 8000:8000
-    volumes:
-        - ./config/scirius:/etc/scirius
-        - ./data/scirius:/etc/suricata/rules
-        - ./data/sciriusdata:/opt/selks/sciriusdata
-    links:
-        - elasticsearch
-        - kibana
-
 suricata:
     build: suricata
     volumes:
-        - ./config/suricata/suricata.yaml:/etc/suricata/suricata.yaml
+        - ./config/suricata/suricata.yaml:/etc/suricata/suricata.yaml:ro
         - ./data/suricata:/var/log/suricata:rw
-        - ./data/scirius/:/etc/suricata/rules:ro
+        - ./data/scirius/:/etc/suricata/rules:rw
     privileged: true
     net: host
     command: --af-packet=wlan0
-    hostname: suricata
+#    links:
+#        - scirius
 
 elasticsearch:
     image: elasticsearch
@@ -32,8 +21,9 @@ logstash:
         - elasticsearch
     command: -f /etc/logstash/logstash.conf
     volumes:
-        - ./config/logstash:/etc/logstash
+        - ./config/logstash:/etc/logstash:ro
         - ./data/suricata:/var/log/suricata:ro
+    hostname: suricata
 
 kibana:
     image: kibana
@@ -41,3 +31,15 @@ kibana:
      - 5601:5601
     links:
         - elasticsearch
+
+scirius:
+    build: scirius
+    ports:
+     - 8000:8000
+    volumes:
+        - ./config/scirius:/etc/scirius:ro
+        - ./data/scirius:/etc/suricata/rules:rw
+        - ./data/sciriusdata:/opt/selks/sciriusdata:rw
+    links:
+        - elasticsearch
+        - kibana
