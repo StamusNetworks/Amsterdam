@@ -1,3 +1,5 @@
+import os
+
 USE_ELASTICSEARCH = True
 ELASTICSEARCH_ADDRESS = "elasticsearch:9200"
 KIBANA_VERSION=4
@@ -14,7 +16,7 @@ DATA_DIR = "/opt/selks/sciriusdata/"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(DATA_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(DATA_DIR, 'scirius.sqlite3'),
     }
 }
 
