@@ -5,11 +5,10 @@ scirius:
     volumes:
         - ./config/scirius:/etc/scirius
         - ./data/scirius:/etc/suricata/rules
-        - ./data/sciriusdb:/opt/selks/sciriusdb
+        - ./data/sciriusdata:/opt/selks/sciriusdata
     links:
         - elasticsearch
         - kibana
-        - suricata
 
 suricata:
     build: suricata

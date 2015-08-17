@@ -8,3 +8,14 @@ USE_KIBANA = True
 
 USE_SURICATA_STATS = True
 USE_LOGSTASH_STATS = True
+
+DATA_DIR = "/opt/selks/sciriusdata/"
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(DATA_DIR, 'db.sqlite3'),
+    }
+}
+
+GIT_SOURCES_BASE_DIRECTORY = os.path.join(DATA_DIR, 'git-sources/')
