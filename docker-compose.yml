@@ -1,3 +1,16 @@
+scirius:
+    build: scirius
+    ports:
+     - 8000:8000
+    volumes:
+        - ./config/scirius:/etc/scirius
+        - ./data/scirius:/etc/suricata/rules
+        - ./data/sciriusdb:/opt/selks/sciriusdb
+    links:
+        - elasticsearch
+        - kibana
+        - suricata
+
 suricata:
     build: suricata
     volumes:
@@ -29,15 +42,3 @@ kibana:
      - 5601:5601
     links:
         - elasticsearch
-
-scirius:
-    build: scirius
-    ports:
-     - 8000:8000
-    volumes:
-        - ./config/scirius:/etc/scirius
-        - ./data/scirius:/etc/suricata/rules
-        - ./data/sciriusdb:/opt/selks/sciriusdb
-    links:
-        - elasticsearch
-        - kibana
