@@ -4,6 +4,7 @@ cd /opt/selks/scirius/
 
 create_db() {
 	echo "no" | python manage.py syncdb
+	#echo "no" | python manage.py syncdb --settings=scirius.local_settings
 	python manage.py migrate
 	python manage.py loaddata /opt/selks/scirius/scirius.json
 	python manage.py createcachetable my_cache_table
@@ -11,7 +12,7 @@ create_db() {
 	python manage.py addsource "SSLBL abuse.ch" https://sslbl.abuse.ch/blacklist/sslblacklist.rules http sig
 	python manage.py defaultruleset "Default SELKS ruleset"
 	python manage.py disablecategory "Default SELKS ruleset" stream-events
-	python manage.py addsuricata SELKS "Suricata on SELKS" /etc/suricata/rules "Default SELKS ruleset"
+	python manage.py addsuricata suricata "Suricata on SELKS" /etc/suricata/rules "Default SELKS ruleset"
 	python manage.py updatesuricata
 }
 
@@ -19,7 +20,7 @@ start() {
 	python manage.py runserver 0.0.0.0:8000
 }
 
-if [ ! -e "/opt/selks/sciriusdata/db.sqlite3" ]; then
+if [ ! -e "/opt/selks/sciriusdata/scirius.sqlite3" ]; then
 	create_db
 fi
 
