@@ -8,8 +8,6 @@ suricata:
     net: host
     # TODO: SELECT YOUR IFACE HERE
     command: --af-packet=wlan0
-#    links:
-#        - scirius
 
 elasticsearch:
     image: elasticsearch
