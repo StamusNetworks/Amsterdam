@@ -36,15 +36,29 @@ Then you can run ::
  
  docker-compose up
 
-As of now this will take really long.
+As of now this will take really long on first run as it will fetch from Docker hub
+all the necessary images and build some custom container based on Debian.
+
+Subsequent run should take less than 1 minute.
 
 You can then connect to:
 
  - http://localhost:8000 on scirius with scirius/scirius
  - http://localhost:5601 on kibana 4
 
+Updating
+========
+
+When code is updated, you can run ::
+
+ docker-compose build --no-cache
+
+Then, you can restart the services ::
+
+ docker-compose restart
+
 Tuning and coding
 =================
 
 The configuration are stored in the config directory. For now only
-scirius, logstash and suricata are configured that way.
+scirius, logstash and suricata are configured that way.s
