@@ -6,8 +6,9 @@ suricata:
         - ./data/scirius/:/etc/suricata/rules:rw
     privileged: true
     net: host
-    # TODO: SELECT YOUR IFACE HERE
-    command: --af-packet=wlan0
+    # TODO set your suricata iface here
+    environment:
+        - SURICATA_ARGS="--af-packet=wlan0"
 
 elasticsearch:
     image: elasticsearch
