@@ -1,4 +1,4 @@
-FROM debian
+FROM debian:latest
 
 ENV VERSION 1.1
 RUN apt-get update

@@ -1,4 +1,4 @@
-FROM debian
+FROM debian:latest
 
 add stamus-packages.list /etc/apt/sources.list.d/
 run apt-get update

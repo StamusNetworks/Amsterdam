@@ -11,12 +11,12 @@ suricata:
         - SURICATA_ARGS="--af-packet=wlan0"
 
 elasticsearch:
-    image: elasticsearch
+    image: elasticsearch:latest
     volumes:
         - ./data/elasticsearch:/usr/share/elasticsearch/data:rw
 
 logstash:
-    image: logstash
+    image: logstash:latest
     links:
         - elasticsearch
     command: -f /etc/logstash/logstash.conf
@@ -26,7 +26,7 @@ logstash:
     hostname: suricata
 
 kibana:
-    image: kibana
+    image: kibana:latest
     ports:
      - 5601:5601
     links:
