@@ -20,7 +20,7 @@ start() {
 	python manage.py runserver 0.0.0.0:8000
 }
 
-if [ ! -e "/opt/selks/sciriusdata/scirius.sqlite3" ]; then
+if [ ! -e "/sciriusdata/scirius.sqlite3" ]; then
 	create_db
 fi
 

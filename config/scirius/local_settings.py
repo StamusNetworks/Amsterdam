@@ -11,7 +11,7 @@ USE_KIBANA = True
 USE_SURICATA_STATS = True
 USE_LOGSTASH_STATS = True
 
-DATA_DIR = "/opt/selks/sciriusdata/"
+DATA_DIR = "/sciriusdata/"
 
 DATABASES = {
     'default': {

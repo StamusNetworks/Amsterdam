@@ -38,7 +38,14 @@ scirius:
     volumes:
         - ./config/scirius:/etc/scirius:ro
         - ./data/scirius:/etc/suricata/rules:rw
-        - ./data/sciriusdata:/opt/selks/sciriusdata:rw
     links:
         - elasticsearch
         - kibana
+    volumes_from:
+        - sciriusdata
+
+sciriusdata:
+    image: busybox
+    command: /bin/true
+    volumes:
+        - /sciriusdata
