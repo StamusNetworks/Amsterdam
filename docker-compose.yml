@@ -8,7 +8,7 @@ suricata:
     net: host
     # TODO set your suricata iface here
     environment:
-        - SURICATA_ARGS="--af-packet=wlan0"
+        - SURICATA_ARGS="--af-packet=eth0"
 
 elasticsearch:
     image: elasticsearch:latest
@@ -39,6 +39,9 @@ scirius:
     volumes:
         - ./config/scirius:/etc/scirius:ro
         - ./data/scirius:/etc/suricata/rules:rw
+        # TODO uncomment correctly set path to scirius git tree on host below
+        # to run a specific scirius version
+        #- /path/to/git/stamus/scirius/:/opt/selks/scirius/:ro
     links:
         - elasticsearch
         - kibana

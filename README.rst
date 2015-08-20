@@ -49,7 +49,7 @@ You can then connect to:
 Updating
 ========
 
-When code is updated, you can run ::
+When code is updated (new suricata package or new ELK versions), you can run ::
 
  docker-compose build --no-cache
 
@@ -62,3 +62,15 @@ Tuning and coding
 
 The configuration are stored in the config directory. For now only
 scirius, logstash and suricata are configured that way.s
+
+Running latest git
+------------------
+
+To do so, simply edit docker-compose.yml by uncommenting and setting the path
+to the scirius source tree. Then restart the services ::
+
+ docker-compose restart
+
+Run a migration inside the container ::
+
+ docker exec amsterdam_scirius_1 python /opt/selks/scirius/manage.py migrate
