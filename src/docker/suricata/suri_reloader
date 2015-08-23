@@ -56,7 +56,7 @@ else:
 
 def SuriReload(reload = False, supervisor = False):
     if supervisor:
-        if subprocess.call(['killall', '-USR1', '/usr/bin/suricata']):
+        if subprocess.call(['killall', '-USR2', '/usr/bin/suricata']):
             logging.error("Unable reload suricata")
         else:
             logging.info("Reloaded suricata")
