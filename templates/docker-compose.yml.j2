@@ -8,7 +8,7 @@ suricata:
     net: host
     # TODO set your suricata iface here
     environment:
-        - SURICATA_ARGS="--af-packet=eth0"
+        - SURICATA_ARGS="$capture_option"
 
 elasticsearch:
     image: elasticsearch:latest

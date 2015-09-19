@@ -1,0 +1,96 @@
+#!/usr/bin/env python
+# Copyright (C) 2015 Stamus Networks
+#
+# You can copy, redistribute or modify this Program under the terms of
+# the GNU General Public License version 3 as published by the Free
+# Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# version 3 along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.
+
+
+import os
+import sys
+import subprocess
+from string import Template
+import argparse
+
+class Amsterdam:
+    def __init__(self, name, iface):
+        self.name = name
+        self.iface = iface
+
+    def create_data_dirs(self, basepath):
+        for directory in [scirius, suricata, elasticsearch]:
+            dir_path = os.path.join(basepath, directory)
+            if not os.path.exists(dir_path):
+                os.makedirs(dir_path)
+    
+    def generate_template(self, options):
+        with open('templates/docker-compose.yml.j2', 'r') as amsterdam_file:
+            # get the string and build template
+            amsterdam_tmpl = amsterdam_file.read()
+            amsterdam_config_tmpl = Template(amsterdam_tmpl)
+        
+            amsterdam_config = amsterdam_config_tmpl.substitute(options)
+        
+            with open('docker-compose.yml', 'w') as amsterdam_compose_file:
+                if sys.version < '3':
+                    amsterdam_compose_file.write(amsterdam_config)
+                else:
+                    amsterdam_compose_file.write(bytes(amsterdam_grep, 'UTF-8'))
+    
+    def run_docker_compose(self, cmd):
+        docker_cmd = ['docker-compose', '-p', self.name, cmd]
+        # start suricata in test mode
+        composeprocess = subprocess.Popen(docker_cmd)
+        #composeprocess = subprocess.Popen(suri_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        #(outdata, errdata) = composeprocess.communicate()
+        if composeprocess.returncode == 0:
+            #return {'status': True, 'outdata': outdata, 'errdata': errdata}
+            return True
+        else:
+            #return {'status': False, 'outdata': outdata, 'errdata': errdata}
+            return False
+    
+    def start(self, args):
+        options = {}
+        options['capture_option'] =  "--af-packet=%s" % args.iface
+        if args.verbose:
+            sys.stdout.write("Generating docker compose file\n")
+        self.generate_template(options)    
+        self.run_docker_compose('up')
+        return True
+
+    def stop(self, args):
+        return True
+    
+    def update(args):
+        return True
+ 
+parser = argparse.ArgumentParser(description='Amsterdam, SELKS on docker')
+parser.add_argument('-s', '--start', action='store_const', const=True, help='Start Amsterdam instance', default=False)
+parser.add_argument('-S', '--stop', action='store_const', const=True, help='Stop Amsterdam instance', default=False)
+parser.add_argument('-i', '--iface', default='eth0', help='Host iface to sniff')
+parser.add_argument('-v', '--verbose', default=False, action="count", help="Show verbose output, use multiple times increase verbosity")
+parser.add_argument('-d', '--data', default=None, help='Directory to store generated data into (default to ./data)')
+parser.add_argument('-n', '--name', default="Amsterdam", help='Set project name')
+
+args = parser.parse_args()
+
+if not args.start  and not args.stop:
+    sys.stderr.write("One command must be provided. Use -h for help.\n")
+    sys.exit(-1)
+
+ams = Amsterdam(args.name, args.iface)
+if args.start:
+    ams.start(args)
+elif args.stop():
+    ams.stop(args)
