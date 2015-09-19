@@ -5,7 +5,7 @@ Amsterdam
 Introduction
 ============
 
-SELKS and docker using compose. The result of Amsterdam is a set of containers providing
+SELKS and Docker using Compose. The result of Amsterdam is a set of containers providing
 a complete Suricata installation:
 
  - Suricata
@@ -15,20 +15,20 @@ a complete Suricata installation:
  - Scirius
 
 The ELK stack is created using the official docker images. Communication between
-logstash and suricata is done via a share repository (from the host). The same
-apply to scirius and suricata were `/etc/suricata/rules` is shared.
+logstash and suricata is done via a share directory (from the host). The same
+applies to scirius and suricata where the `/etc/suricata/rules` directory is shared.
 
 Usage
 =====
 
-You need to have installed Docker compose. On Debian ::
+You need to install Docker compose. On Debian ::
 
  apt-get install docker-compose
 
-Then got to the root directory of amsterdam.
+Then got to the root directory of Amsterdam.
 
-Select the interface Suricata will listen to by editing docker-compose.yml. To do
-that update the `command:` line at the beginning.
+Select the interface Suricata will listen to by editing `docker-compose.yml`. To do
+that update the `environment:` line at the beginning of the file
 
 You may need to create the `data` directory that will contain the persistent data.
 
@@ -43,7 +43,7 @@ Subsequent run should take less than 1 minute.
 
 You can then connect to:
 
- - http://localhost:8000 on scirius with scirius/scirius
+ - http://localhost:8000 on scirius with scirius/scirius as login/password 
  - http://localhost:5601 on kibana 4
 
 Updating
@@ -61,7 +61,7 @@ Tuning and coding
 =================
 
 The configuration are stored in the config directory. For now only
-scirius, logstash and suricata are configured that way.s
+scirius, logstash and suricata are configured that way.
 
 Running latest git
 ------------------
