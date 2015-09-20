@@ -52,18 +52,15 @@ class Amsterdam:
         docker_cmd = ['docker-compose', '-p', self.name, cmd]
         # start suricata in test mode
         composeprocess = subprocess.Popen(docker_cmd)
-        #composeprocess = subprocess.Popen(suri_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        #(outdata, errdata) = composeprocess.communicate()
         if composeprocess.returncode == 0:
-            #return {'status': True, 'outdata': outdata, 'errdata': errdata}
             return True
         else:
-            #return {'status': False, 'outdata': outdata, 'errdata': errdata}
             return False
     
     def setup(self, args):
         options = {}
         options['capture_option'] =  "--af-packet=%s" % args.iface
+        options['basepath'] = self.basepath
         if args.verbose:
             sys.stdout.write("Generating docker compose file\n")
         self.create_data_dirs()
