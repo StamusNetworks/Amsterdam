@@ -2,6 +2,10 @@
 
 cd /opt/selks/scirius/
 
+migrate_db() {
+	python manage.py migrate
+}
+
 create_db() {
 	echo "no" | python manage.py syncdb
 	#echo "no" | python manage.py syncdb --settings=scirius.local_settings
@@ -22,6 +26,8 @@ start() {
 
 if [ ! -e "/sciriusdata/scirius.sqlite3" ]; then
 	create_db
+else
+	migrate_db
 fi
 
 start
