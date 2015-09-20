@@ -18,6 +18,13 @@ The ELK stack is created using the official docker images. Communication between
 logstash and suricata is done via a share directory (from the host). The same
 applies to scirius and suricata where the `/etc/suricata/rules` directory is shared.
 
+Installation
+============
+
+You can install amsterdam from the source directory by running ::
+
+ python setup.py install
+
 Usage
 =====
 
@@ -25,17 +32,11 @@ You need to install Docker compose. On Debian ::
 
  apt-get install docker-compose
 
-Then got to the root directory of Amsterdam.
-
-Select the interface Suricata will listen to by editing `docker-compose.yml`. To do
-that update the `environment:` line at the beginning of the file
-
-You may need to create the `data` directory that will contain the persistent data.
-
-Then you can run ::
+To sniff the `wlan0` interface and store data and config in the `data` directory,
+you can run ::
  
- ./amsterdam -d data -i wlan0 setup
- ./amsterdam -d data start
+ amsterdam -d data -i wlan0 setup
+ amsterdam -d data start
 
 As of now the start command will take really long on first run as it will fetch from Docker hub
 all the necessary images and build some custom container based on Debian.
@@ -49,18 +50,18 @@ You can then connect to:
 
 To stop the amsterdam instance, run ::
 
- ./amsterdam -d data stop
+ amsterdam -d data stop
 
 Updating
 ========
 
 When code is updated (new suricata package or new ELK versions), you can run ::
 
- ./amsterdam -d data update
+ amsterdam -d data update
 
 Then, you can restart the services ::
 
- ./amsterdam -d data restart
+ amsterdam -d data restart
 
 Tuning and coding
 =================
@@ -74,7 +75,7 @@ Running latest git
 To do so, simply edit docker-compose.yml by uncommenting and setting the path
 to the scirius source tree. Then restart the services ::
 
- ./amsterdam -d data restart
+ amsterdam -d data restart
 
 Run a migration inside the container (if you project name is `amsterdam`) ::
 
