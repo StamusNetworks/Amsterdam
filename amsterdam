@@ -56,9 +56,11 @@ class Amsterdam:
                 else:
                     amsterdam_compose_file.write(bytes(amsterdam_grep, 'UTF-8'))
     
-    def run_docker_compose(self, cmd):
+    def run_docker_compose(self, cmd, options = None):
         docker_cmd = ['docker-compose', '-p', self.name, '-f',
                       os.path.join(self.basepath, 'docker-compose.yml'), cmd]
+        if options:
+            docker_cmd.extend(options)
         return subprocess.call(docker_cmd)
     
     def setup(self, args):
@@ -70,20 +72,21 @@ class Amsterdam:
         self.create_data_dirs()
         self.update_config()
         self.generate_template(options)    
-        return True
+        return 0
 
     def start(self, args):
         if not os.path.exists(os.path.join(self.basepath, 'docker-compose.yml')):
             sys.stderr.write("'%s' directory does not exist or is empty, please run setup command\n" % (self.basepath))
             return False
-        self.run_docker_compose('up')
-        return True
+        return self.run_docker_compose('up')
 
     def stop(self, args):
-        self.run_docker_compose('stop')
-        return True
+        return self.run_docker_compose('stop')
     
     def update(args):
+        self.run_docker_compose('build', options = ['--no-cache'])
+        self.stop(None)
+        self.start(None)
         return True
  
 if __name__ == "__main__":
@@ -109,11 +112,14 @@ if __name__ == "__main__":
     
     ams = Amsterdam(args.name, args.iface, basepath)
     if args.command[0] == 'setup':
-        if ams.setup(args) != True:
+        if ams.setup(args) != 0:
             sys.exit(-1)
     if args.command[0] == 'start':
-        if ams.start(args) != True:
+        if ams.start(args) != 0:
             sys.exit(-1)
     elif args.command[0] == 'stop':
-        if ams.stop(args) != True:
+        if ams.stop(args) != 0:
+            sys.exit(-1)
+    elif args.command[0] == 'stop':
+        if ams.stop(args) != 0:
             sys.exit(-1)
