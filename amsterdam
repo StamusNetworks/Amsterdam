@@ -19,6 +19,7 @@
 import os
 import sys
 import subprocess
+import shutil
 from string import Template
 
 class Amsterdam:
@@ -32,6 +33,14 @@ class Amsterdam:
             dir_path = os.path.join(self.basepath, directory)
             if not os.path.exists(dir_path):
                 os.makedirs(dir_path)
+
+    def update_config(self):
+        try:
+            shutil.copytree('config', os.path.join(self.basepath, 'config'))
+            shutil.copytree('docker', os.path.join(self.basepath, 'docker'))
+        # FIXME
+        except:
+            pass
     
     def generate_template(self, options):
         with open('templates/docker-compose.yml.j2', 'r') as amsterdam_file:
@@ -50,12 +59,7 @@ class Amsterdam:
     def run_docker_compose(self, cmd):
         docker_cmd = ['docker-compose', '-p', self.name, '-f',
                       os.path.join(self.basepath, 'docker-compose.yml'), cmd]
-        # start suricata in test mode
-        composeprocess = subprocess.Popen(docker_cmd)
-        if composeprocess.returncode == 0:
-            return True
-        else:
-            return False
+        return subprocess.call(docker_cmd)
     
     def setup(self, args):
         options = {}
@@ -64,6 +68,7 @@ class Amsterdam:
         if args.verbose:
             sys.stdout.write("Generating docker compose file\n")
         self.create_data_dirs()
+        self.update_config()
         self.generate_template(options)    
         return True
 

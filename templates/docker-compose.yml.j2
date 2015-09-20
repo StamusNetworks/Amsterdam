@@ -1,5 +1,5 @@
 suricata:
-    build: suricata
+    build: $basepath/docker/suricata
     volumes:
         - $basepath/config/suricata/suricata.yaml:/etc/suricata/suricata.yaml:ro
         - $basepath/suricata:/var/log/suricata:rw
@@ -33,7 +33,7 @@ kibana:
         - elasticsearch
 
 scirius:
-    build: scirius
+    build: $basepath/docker/scirius
     ports:
      - 8000:8000
     volumes:
