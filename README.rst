@@ -74,8 +74,8 @@ Running latest git
 To do so, simply edit docker-compose.yml by uncommenting and setting the path
 to the scirius source tree. Then restart the services ::
 
- docker-compose restart
+ ./amsterdam -d data restart
 
-Run a migration inside the container ::
+Run a migration inside the container (if you project name is `amsterdam`) ::
 
  docker exec amsterdam_scirius_1 python /opt/selks/scirius/manage.py migrate
