@@ -49,7 +49,8 @@ class Amsterdam:
                     amsterdam_compose_file.write(bytes(amsterdam_grep, 'UTF-8'))
     
     def run_docker_compose(self, cmd):
-        docker_cmd = ['docker-compose', '-p', self.name, cmd]
+        docker_cmd = ['docker-compose', '-p', self.name, '-f',
+                      os.path.join(self.basepath, 'docker-compose.yml'), cmd]
         # start suricata in test mode
         composeprocess = subprocess.Popen(docker_cmd)
         if composeprocess.returncode == 0:
