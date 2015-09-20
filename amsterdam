@@ -20,7 +20,6 @@ import os
 import sys
 import subprocess
 from string import Template
-import argparse
 
 class Amsterdam:
     def __init__(self, name, iface, basepath):
@@ -82,32 +81,34 @@ class Amsterdam:
     def update(args):
         return True
  
-parser = argparse.ArgumentParser(description='Amsterdam, SELKS on docker')
-parser.add_argument('-s', '--start', action='store_const', const=True, help='Start Amsterdam instance', default=False)
-parser.add_argument('-S', '--stop', action='store_const', const=True, help='Stop Amsterdam instance', default=False)
-parser.add_argument('-i', '--iface', default='eth0', help='Host iface to sniff')
-parser.add_argument('-v', '--verbose', default=False, action="count", help="Show verbose output, use multiple times increase verbosity")
-parser.add_argument('-d', '--data', default=None, help='Directory to store generated data into (default to ./data)')
-parser.add_argument('-n', '--name', default="Amsterdam", help='Set project name')
-parser.add_argument('command', metavar='command', nargs=1, help='Amsterdam command [setup|start|stop])', default=None)
-
-args = parser.parse_args()
-
-if args.command[0] not in ['setup', 'start', 'stop']:
-    sys.stderr.write("Invalid command: '%s'\n" % args.command)
-    sys.exit(-1)
-
-basepath = './data'
-if args.data:
-    basepath = args.data
-
-ams = Amsterdam(args.name, args.iface, basepath)
-if args.command[0] == 'setup':
-    if ams.setup(args) != True:
+if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser(description='Amsterdam, SELKS on docker')
+    parser.add_argument('-s', '--start', action='store_const', const=True, help='Start Amsterdam instance', default=False)
+    parser.add_argument('-S', '--stop', action='store_const', const=True, help='Stop Amsterdam instance', default=False)
+    parser.add_argument('-i', '--iface', default='eth0', help='Host iface to sniff')
+    parser.add_argument('-v', '--verbose', default=False, action="count", help="Show verbose output, use multiple times increase verbosity")
+    parser.add_argument('-d', '--data', default=None, help='Directory to store generated data into (default to ./data)')
+    parser.add_argument('-n', '--name', default="Amsterdam", help='Set project name')
+    parser.add_argument('command', metavar='command', nargs=1, help='Amsterdam command [setup|start|stop])', default=None)
+    
+    args = parser.parse_args()
+    
+    if args.command[0] not in ['setup', 'start', 'stop']:
+        sys.stderr.write("Invalid command: '%s'\n" % args.command)
         sys.exit(-1)
-if args.command[0] == 'start':
-    if ams.start(args) != True:
-        sys.exit(-1)
-elif args.command[0] == 'stop':
-    if ams.stop(args) != True:
-        sys.exit(-1)
+    
+    basepath = './data'
+    if args.data:
+        basepath = args.data
+    
+    ams = Amsterdam(args.name, args.iface, basepath)
+    if args.command[0] == 'setup':
+        if ams.setup(args) != True:
+            sys.exit(-1)
+    if args.command[0] == 'start':
+        if ams.start(args) != True:
+            sys.exit(-1)
+    elif args.command[0] == 'stop':
+        if ams.stop(args) != True:
+            sys.exit(-1)
