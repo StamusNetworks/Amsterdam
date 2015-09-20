@@ -108,7 +108,7 @@ if __name__ == "__main__":
     parser.add_argument('-v', '--verbose', default=False, action="count", help="Show verbose output, use multiple times increase verbosity")
     parser.add_argument('-d', '--data', default=None, help='Directory to store generated data into (default to ./data)')
     parser.add_argument('-n', '--name', default="Amsterdam", help='Set project name')
-    parser.add_argument('command', metavar='command', nargs=1, help='Amsterdam command [setup|start|stop])', default=None)
+    parser.add_argument('command', metavar='command', nargs=1, help='Amsterdam command [setup|start|stop|restart|update])', default=None)
     
     args = parser.parse_args()
     
