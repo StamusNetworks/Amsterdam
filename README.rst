@@ -56,11 +56,11 @@ Updating
 
 When code is updated (new suricata package or new ELK versions), you can run ::
 
- docker-compose build --no-cache
+ ./amsterdam -d data update
 
 Then, you can restart the services ::
 
- docker-compose restart
+ ./amsterdam -d data restart
 
 Tuning and coding
 =================
