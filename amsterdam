@@ -41,6 +41,12 @@ class Amsterdam:
         # FIXME
         except:
             pass
+
+    def update_docker(self):
+        dockertree = os.path.join(self.basepath, 'docker')
+        if os.path.exists(dockertree):
+            shutil.rmtree(dockertree)
+            shutil.copytree('docker', dockertree)
     
     def generate_template(self, options):
         with open('templates/docker-compose.yml.j2', 'r') as amsterdam_file:
@@ -83,10 +89,14 @@ class Amsterdam:
     def stop(self, args):
         return self.run_docker_compose('stop')
     
-    def update(args):
-        self.run_docker_compose('build', options = ['--no-cache'])
+    def restart(self, args):
         self.stop(None)
         self.start(None)
+        return True
+
+    def update(self, args):
+        self.update_docker()
+        self.run_docker_compose('build', options = ['--no-cache'])
         return True
  
 if __name__ == "__main__":
@@ -102,7 +112,7 @@ if __name__ == "__main__":
     
     args = parser.parse_args()
     
-    if args.command[0] not in ['setup', 'start', 'stop']:
+    if args.command[0] not in ['setup', 'start', 'stop', 'restart', 'update']:
         sys.stderr.write("Invalid command: '%s'\n" % args.command)
         sys.exit(-1)
     
@@ -120,6 +130,9 @@ if __name__ == "__main__":
     elif args.command[0] == 'stop':
         if ams.stop(args) != 0:
             sys.exit(-1)
-    elif args.command[0] == 'stop':
-        if ams.stop(args) != 0:
+    elif args.command[0] == 'restart':
+        if ams.restart(args) != 0:
+            sys.exit(-1)
+    elif args.command[0] == 'update':
+        if ams.update(args) != 0:
             sys.exit(-1)
