@@ -23,13 +23,14 @@ from string import Template
 import argparse
 
 class Amsterdam:
-    def __init__(self, name, iface):
+    def __init__(self, name, iface, basepath):
         self.name = name
         self.iface = iface
+        self.basepath = os.path.abspath(basepath)
 
-    def create_data_dirs(self, basepath):
-        for directory in [scirius, suricata, elasticsearch]:
-            dir_path = os.path.join(basepath, directory)
+    def create_data_dirs(self):
+        for directory in ['scirius', 'suricata', 'elasticsearch']:
+            dir_path = os.path.join(self.basepath, directory)
             if not os.path.exists(dir_path):
                 os.makedirs(dir_path)
     
@@ -41,7 +42,7 @@ class Amsterdam:
         
             amsterdam_config = amsterdam_config_tmpl.substitute(options)
         
-            with open('docker-compose.yml', 'w') as amsterdam_compose_file:
+            with open(os.path.join(basepath, 'docker-compose.yml'), 'w') as amsterdam_compose_file:
                 if sys.version < '3':
                     amsterdam_compose_file.write(amsterdam_config)
                 else:
@@ -60,16 +61,24 @@ class Amsterdam:
             #return {'status': False, 'outdata': outdata, 'errdata': errdata}
             return False
     
-    def start(self, args):
+    def setup(self, args):
         options = {}
         options['capture_option'] =  "--af-packet=%s" % args.iface
         if args.verbose:
             sys.stdout.write("Generating docker compose file\n")
+        self.create_data_dirs()
         self.generate_template(options)    
+        return True
+
+    def start(self, args):
+        if not os.path.exists(os.path.join(self.basepath, 'docker-compose.yml')):
+            sys.stderr.write("'%s' directory does not exist or is empty, please run setup command\n" % (self.basepath))
+            return False
         self.run_docker_compose('up')
         return True
 
     def stop(self, args):
+        self.run_docker_compose('stop')
         return True
     
     def update(args):
@@ -82,15 +91,25 @@ parser.add_argument('-i', '--iface', default='eth0', help='Host iface to sniff')
 parser.add_argument('-v', '--verbose', default=False, action="count", help="Show verbose output, use multiple times increase verbosity")
 parser.add_argument('-d', '--data', default=None, help='Directory to store generated data into (default to ./data)')
 parser.add_argument('-n', '--name', default="Amsterdam", help='Set project name')
+parser.add_argument('command', metavar='command', nargs=1, help='Amsterdam command [setup|start|stop])', default=None)
 
 args = parser.parse_args()
 
-if not args.start  and not args.stop:
-    sys.stderr.write("One command must be provided. Use -h for help.\n")
+if args.command[0] not in ['setup', 'start', 'stop']:
+    sys.stderr.write("Invalid command: '%s'\n" % args.command)
     sys.exit(-1)
 
-ams = Amsterdam(args.name, args.iface)
-if args.start:
-    ams.start(args)
-elif args.stop():
-    ams.stop(args)
+basepath = './data'
+if args.data:
+    basepath = args.data
+
+ams = Amsterdam(args.name, args.iface, basepath)
+if args.command[0] == 'setup':
+    if ams.setup(args) != True:
+        sys.exit(-1)
+if args.command[0] == 'start':
+    if ams.start(args) != True:
+        sys.exit(-1)
+elif args.command[0] == 'stop':
+    if ams.stop(args) != True:
+        sys.exit(-1)
