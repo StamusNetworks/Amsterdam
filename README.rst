@@ -34,9 +34,10 @@ You may need to create the `data` directory that will contain the persistent dat
 
 Then you can run ::
  
- docker-compose up
+ ./amsterdam -d data -i wlan0 setup
+ ./amsterdam -d data start
 
-As of now this will take really long on first run as it will fetch from Docker hub
+As of now the start command will take really long on first run as it will fetch from Docker hub
 all the necessary images and build some custom container based on Debian.
 
 Subsequent run should take less than 1 minute.
@@ -45,6 +46,10 @@ You can then connect to:
 
  - http://localhost:8000 on scirius with scirius/scirius as login/password 
  - http://localhost:5601 on kibana 4
+
+To stop the amsterdam instance, run ::
+
+ ./amsterdam -d data stop
 
 Updating
 ========
