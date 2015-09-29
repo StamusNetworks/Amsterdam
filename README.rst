@@ -23,14 +23,14 @@ Installation
 
 You can install amsterdam from the source directory by running ::
 
- python setup.py install
+ sudo python setup.py install
 
 Usage
 =====
 
 You need to install Docker compose. On Debian ::
 
- apt-get install docker-compose
+ sudo apt-get install docker-compose
 
 To sniff the `wlan0` interface and store data and config in the `data` directory,
 you can run ::
