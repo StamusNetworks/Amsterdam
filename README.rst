@@ -69,11 +69,11 @@ Tuning and coding
 The configuration are stored in the config directory. For now only
 scirius, logstash and suricata are configured that way.
 
-Running latest git
-------------------
+Running Scirius from latest git
+-------------------------------
 
-To do so, simply edit docker-compose.yml by uncommenting and setting the path
-to the scirius source tree. Then restart the services ::
+To do so, simply edit docker-compose.yml in the data directory and uncomment and
+set the path to the scirius source tree. Then restart the services ::
 
  amsterdam -d data restart
 
