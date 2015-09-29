@@ -5,8 +5,8 @@ Amsterdam
 Introduction
 ============
 
-SELKS and Docker using Compose. The result of Amsterdam is a set of containers providing
-a complete Suricata installation:
+Amsterdam is SELKS and Docker using Compose. The result of Amsterdam is a set of containers
+providing a complete Suricata IDS/NSM ecosystem:
 
  - Suricata
  - Elasticsearch
