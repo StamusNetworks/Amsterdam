@@ -33,6 +33,6 @@ setup(name='amsterdam',
           'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
           'Operating System :: POSIX',
           'Programming Language :: Python',
-          'Topic :: Operating System',
+          'Topic :: Security',
           ],
       )
