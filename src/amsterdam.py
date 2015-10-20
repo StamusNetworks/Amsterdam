@@ -45,6 +45,7 @@ class Amsterdam:
             shutil.copytree(self.get_sys_data_dirs('docker'), os.path.join(self.basepath, 'docker'))
         # FIXME
         except:
+            sys.stderr.write("Unable to copy config files")
             pass
 
     def update_docker(self):
