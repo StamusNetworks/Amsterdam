@@ -104,5 +104,6 @@ class Amsterdam:
 
     def update(self, args):
         self.update_docker()
+        self.run_docker_compose('pull')
         self.run_docker_compose('build', options = ['--no-cache'])
         return True
