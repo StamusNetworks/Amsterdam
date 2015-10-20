@@ -51,7 +51,8 @@ class Amsterdam:
         dockertree = os.path.join(self.basepath, 'docker')
         if os.path.exists(dockertree):
             shutil.rmtree(dockertree)
-            shutil.copytree('docker', dockertree)
+        if os.path.exists(self.basepath):
+            shutil.copytree(self.get_sys_data_dirs('docker'), dockertree)
     
     def generate_template(self, options):
         template_path = os.path.join(self.get_sys_data_dirs('templates'), 'docker-compose.yml.j2')
