@@ -96,6 +96,10 @@ class Amsterdam:
 
     def stop(self, args):
         return self.run_docker_compose('stop')
+
+    def rm(self, args):
+        self.stop(args)
+        return self.run_docker_compose('rm')
     
     def restart(self, args):
         self.stop(None)

@@ -26,11 +26,11 @@ parser.add_argument('-i', '--iface', default='eth0', help='Host iface to sniff')
 parser.add_argument('-v', '--verbose', default=False, action="count", help="Show verbose output, use multiple times increase verbosity")
 parser.add_argument('-d', '--data', default=None, help='Directory to store generated data into (default to ./data)')
 parser.add_argument('-n', '--name', default="Amsterdam", help='Set project name')
-parser.add_argument('command', metavar='command', nargs=1, help='Amsterdam command [setup|start|stop|restart|update])', default=None)
+parser.add_argument('command', metavar='command', nargs=1, help='Amsterdam command [setup|start|stop|restart|update|rm])', default=None)
 
 args = parser.parse_args()
 
-if args.command[0] not in ['setup', 'start', 'stop', 'restart', 'update']:
+if args.command[0] not in ['setup', 'start', 'stop', 'restart', 'update', 'rm']:
     sys.stderr.write("Invalid command: '%s'\n" % args.command)
     sys.exit(-1)
 
@@ -53,4 +53,8 @@ elif args.command[0] == 'restart':
         sys.exit(-1)
 elif args.command[0] == 'update':
     if ams.update(args) != 0:
+        sys.exit(-1)
+elif args.command[0] == 'rm':
+    sys.stdout.write("Please remove the data directory if you want to clean the system\n")
+    if ams.rm(args) != 0:
         sys.exit(-1)
