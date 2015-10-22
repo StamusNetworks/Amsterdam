@@ -52,6 +52,12 @@ To stop the amsterdam instance, run ::
 
  amsterdam -d data stop
 
+To remove an amsterdam instance (named hacklu), run ::
+
+ amsterdam -n hacklu -d ~/builds/amsterdam/hacklu/ rm
+
+and remove the data directory if you want to delete data.
+
 Updating
 ========
 
