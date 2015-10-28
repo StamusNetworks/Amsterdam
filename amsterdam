@@ -20,8 +20,6 @@ import argparse
 from amsterdam import Amsterdam
 
 parser = argparse.ArgumentParser(description='Amsterdam, SELKS on docker')
-parser.add_argument('-s', '--start', action='store_const', const=True, help='Start Amsterdam instance', default=False)
-parser.add_argument('-S', '--stop', action='store_const', const=True, help='Stop Amsterdam instance', default=False)
 parser.add_argument('-i', '--iface', default='eth0', help='Host iface to sniff')
 parser.add_argument('-v', '--verbose', default=False, action="count", help="Show verbose output, use multiple times increase verbosity")
 parser.add_argument('-d', '--data', default=None, help='Directory to store generated data into (default to ./data)')
