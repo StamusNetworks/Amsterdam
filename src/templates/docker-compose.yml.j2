@@ -12,6 +12,7 @@ suricata:
 
 elasticsearch:
     image: elasticsearch:latest
+    command: -Des.network.bind_host=0.0.0.0
     volumes:
         - $basepath/elasticsearch:/usr/share/elasticsearch/data:rw
 
