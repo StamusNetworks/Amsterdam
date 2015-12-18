@@ -54,3 +54,10 @@ sciriusdata:
     command: /bin/true
     volumes:
         - /sciriusdata
+
+evebox:
+    image: jasonish/evebox:latest
+    ports:
+        - 5636:5636
+    links:
+        - elasticsearch
