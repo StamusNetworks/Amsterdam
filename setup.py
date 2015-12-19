@@ -15,7 +15,7 @@ os.chdir('..')
 
 
 setup(name='amsterdam',
-      version='0.2',
+      version='0.3',
       description='Suricata, ELK, Scirius on Docker',
       author='Stamus Networks',
       author_email='oss@stamus-networks.com',
