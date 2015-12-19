@@ -17,13 +17,14 @@
 
 import sys
 import argparse
+import os.path
 from amsterdam import Amsterdam
 
 parser = argparse.ArgumentParser(description='Amsterdam, SELKS on docker')
 parser.add_argument('-i', '--iface', default='eth0', help='Host iface to sniff')
 parser.add_argument('-v', '--verbose', default=False, action="count", help="Show verbose output, use multiple times increase verbosity")
 parser.add_argument('-d', '--data', default=None, help='Directory to store generated data into (default to ./data)')
-parser.add_argument('-n', '--name', default="Amsterdam", help='Set project name')
+parser.add_argument('-n', '--name', default=None, help='Set project name')
 parser.add_argument('command', metavar='command', nargs=1, help='Amsterdam command [setup|start|stop|restart|update|rm])', default=None)
 
 args = parser.parse_args()
@@ -35,6 +36,9 @@ if args.command[0] not in ['setup', 'start', 'stop', 'restart', 'update', 'rm']:
 basepath = './data'
 if args.data:
     basepath = args.data
+
+if not args.name:
+    args.name = os.path.basename(args.data)
 
 ams = Amsterdam(args.name, args.iface, basepath)
 if args.command[0] == 'setup':
