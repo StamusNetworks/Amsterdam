@@ -13,6 +13,7 @@ providing a complete Suricata IDS/NSM ecosystem:
  - Logstash
  - Kibana
  - Scirius
+ - Evebox (https://github.com/jasonish/evebox)
 
 The ELK stack is created using the official docker images. Communication between
 logstash and suricata is done via a share directory (from the host). The same
@@ -32,11 +33,11 @@ You need to install Docker compose. On Debian ::
 
  sudo apt-get install docker-compose
 
-To sniff the `wlan0` interface and store data and config in the `data` directory,
+To sniff the `wlan0` interface and store data and config in the `ams` directory,
 you can run ::
  
- amsterdam -d data -i wlan0 setup
- amsterdam -d data start
+ amsterdam -d ams -i wlan0 setup
+ amsterdam -d ams start
 
 As of now the start command will take really long on first run as it will fetch from Docker hub
 all the necessary images and build some custom container based on Debian.
@@ -47,14 +48,15 @@ You can then connect to:
 
  - http://localhost:8000 on scirius with scirius/scirius as login/password 
  - http://localhost:5601 on kibana 4
+ - http://localhost:5636/ on evebox
 
 To stop the amsterdam instance, run ::
 
- amsterdam -d data stop
+ amsterdam -d ams stop
 
-To remove an amsterdam instance (named hacklu), run ::
+To remove an amsterdam instance in directory hacklu, run ::
 
- amsterdam -n hacklu -d ~/builds/amsterdam/hacklu/ rm
+ amsterdam -d ~/builds/amsterdam/hacklu/ rm
 
 and remove the data directory if you want to delete data.
 
@@ -63,11 +65,11 @@ Updating
 
 When code is updated (new suricata package or new ELK versions), you can run ::
 
- amsterdam -d data update
+ amsterdam -d ams update
 
 Then, you can restart the services ::
 
- amsterdam -d data restart
+ amsterdam -d ams restart
 
 Tuning and coding
 =================
@@ -81,8 +83,8 @@ Running Scirius from latest git
 To do so, simply edit docker-compose.yml in the data directory and uncomment and
 set the path to the scirius source tree. Then restart the services ::
 
- amsterdam -d data restart
+ amsterdam -d ams restart
 
-Run a migration inside the container (if you project name is `amsterdam`) ::
+Run a migration inside the container ::
 
- docker exec amsterdam_scirius_1 python /opt/selks/scirius/manage.py migrate
+ docker exec ams_scirius_1 python /opt/selks/scirius/manage.py migrate
