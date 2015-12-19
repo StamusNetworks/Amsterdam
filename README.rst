@@ -81,7 +81,10 @@ Running Scirius from latest git
 -------------------------------
 
 To do so, simply edit docker-compose.yml in the data directory and uncomment and
-set the path to the scirius source tree. Then restart the services ::
+set the path to the scirius source tree. You will also need to copy the local_settings.py
+in config/scirius directory to in scirius subdirectory of your scirius source.
+
+Once done, you can restart the services ::
 
  amsterdam -d ams restart
 
