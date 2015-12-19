@@ -11,7 +11,7 @@ suricata:
         - SURICATA_ARGS="$capture_option"
 
 elasticsearch:
-    image: elasticsearch:2.1
+    build: $basepath/docker/elasticsearch
     command: -Des.network.bind_host=0.0.0.0
     volumes:
         - $basepath/elasticsearch:/usr/share/elasticsearch/data:rw
