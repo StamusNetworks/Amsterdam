@@ -45,8 +45,11 @@ if args.command[0] == 'setup':
     if ams.setup(args) != 0:
         sys.exit(-1)
 if args.command[0] == 'start':
-    if ams.start(args) != 0:
-        sys.exit(-1)
+    try:
+        if ams.start(args) != 0:
+            sys.exit(-1)
+    except KeyboardInterrupt:
+        ams.stop(args)
 elif args.command[0] == 'stop':
     if ams.stop(args) != 0:
         sys.exit(-1)
