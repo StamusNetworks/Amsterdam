@@ -2,6 +2,7 @@ import os
 
 USE_ELASTICSEARCH = True
 ELASTICSEARCH_ADDRESS = "elasticsearch:9200"
+ELASTICSEARCH_2X = True
 KIBANA_VERSION=4
 KIBANA_INDEX = ".kibana"
 KIBANA_URL = "http://localhost:5601"
