@@ -11,13 +11,13 @@ suricata:
         - SURICATA_ARGS="$capture_option"
 
 elasticsearch:
-    image: elasticsearch:latest
+    image: elasticsearch:2.1
     command: -Des.network.bind_host=0.0.0.0
     volumes:
         - $basepath/elasticsearch:/usr/share/elasticsearch/data:rw
 
 logstash:
-    image: logstash:latest
+    image: logstash:2.1
     links:
         - elasticsearch
     command: -f /etc/logstash/logstash.conf
@@ -27,7 +27,7 @@ logstash:
     hostname: suricata
 
 kibana:
-    image: kibana:latest
+    image: kibana:4.3
     ports:
      - 5601:5601
     links:
