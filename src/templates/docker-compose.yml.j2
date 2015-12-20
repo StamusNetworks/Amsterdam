@@ -27,7 +27,7 @@ logstash:
     hostname: suricata
 
 kibana:
-    image: kibana:4.3
+    build: $basepath/docker/kibana
     ports:
      - 5601:5601
     links:
