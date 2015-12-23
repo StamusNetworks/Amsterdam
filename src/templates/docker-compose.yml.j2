@@ -2,6 +2,7 @@ suricata:
     build: $basepath/docker/suricata
     volumes:
         - $basepath/config/suricata/suricata.yaml:/etc/suricata/suricata.yaml:ro
+        - $basepath/config/suricata/threshold.config:/etc/suricata/threshold.config:ro
         - $basepath/suricata:/var/log/suricata:rw
         - $basepath/scirius/:/etc/suricata/rules:rw
     privileged: true
