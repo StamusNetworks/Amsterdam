@@ -8,5 +8,6 @@ run apt-get update
 run DEBIAN_FRONTEND=noninteractive apt-get install -y suricata supervisor python-pyinotify psmisc
 COPY supervisor.d/* /etc/supervisor/conf.d/
 COPY suri_reloader /usr/local/sbin/suri_reloader
+run touch /etc/suricata/threshold.config
 
 CMD ["/usr/bin/supervisord", "-n"]
