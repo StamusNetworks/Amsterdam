@@ -7,6 +7,8 @@ KIBANA_VERSION=4
 KIBANA_INDEX = ".kibana"
 KIBANA_URL = "http://localhost:5601"
 
+SURICATA_UNIX_SOCKET = "/var/run/suricata/suricata-command.socket"
+
 USE_KIBANA = True
 
 USE_SURICATA_STATS = True

@@ -4,6 +4,7 @@ suricata:
         - $basepath/config/suricata/suricata.yaml:/etc/suricata/suricata.yaml:ro
         - $basepath/config/suricata/threshold.config:/etc/suricata/threshold.config:ro
         - $basepath/suricata:/var/log/suricata:rw
+        - $basepath/suricata/run/:/var/run/suricata:rw
         - $basepath/scirius/:/etc/suricata/rules:rw
     privileged: true
     net: host
@@ -41,6 +42,7 @@ scirius:
     volumes:
         - $basepath/config/scirius:/etc/scirius:ro
         - $basepath/scirius:/etc/suricata/rules:rw
+        - $basepath/suricata/run:/var/run/suricata:ro
         # TODO uncomment correctly set path to scirius git tree on host below
         # to run a specific scirius version
         #- /path/to/git/stamus/scirius/:/opt/selks/scirius/:ro
