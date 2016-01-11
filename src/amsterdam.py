@@ -91,12 +91,23 @@ class Amsterdam:
                 raise Exception("No docker-compose binary in path")
         self.docker_compose_version = out.decode('UTF-8').split(': ')[1]
 
+        docker_compose_path = os.path.join(os.getcwd(), self.basepath)
+
+        self.convertpath = False
+        try:
+            docker_compose_path.decode('ascii')
+        except UnicodeDecodeError:
+            self.convertpath = True
+
     def run_docker_compose(self, cmd, options = None):
+        localenv = os.environ.copy()
+        if self.convertpath:
+            localenv['LANG'] = "en_US.utf8"
         docker_cmd = ['docker-compose', '-p', self.name, '-f',
                       os.path.join(self.basepath, 'docker-compose.yml'), cmd]
         if options:
             docker_cmd.extend(options)
-        return subprocess.call(docker_cmd)
+        return subprocess.call(docker_cmd, env = localenv)
     
     def setup(self, args):
         options = {}
