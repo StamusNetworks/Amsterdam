@@ -74,6 +74,12 @@ class Amsterdam:
                     amsterdam_compose_file.write(bytes(amsterdam_grep, 'UTF-8'))
     
     def check_environment(self):
+        try:
+            self.name.decode('ascii')
+        except UnicodeDecodeError:
+            pass
+            raise Exception("Name or data directory can't contain/finish with non ascii character")
+
         docker_cmd = ['docker-compose', '-v']
         try:
             out = subprocess.check_output(docker_cmd)
