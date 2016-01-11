@@ -18,7 +18,7 @@
 import sys
 import argparse
 import os.path
-from amsterdam import Amsterdam
+from amsterdam import Amsterdam, AMSTERDAM_VERSION
 
 parser = argparse.ArgumentParser(description='Amsterdam, SELKS on docker')
 parser.add_argument('-i', '--iface', default='eth0', help='Host iface to sniff')
@@ -26,6 +26,7 @@ parser.add_argument('-v', '--verbose', default=False, action="count", help="Show
 parser.add_argument('-d', '--data', default=None, help='Directory to store generated data into (default to ./data)')
 parser.add_argument('-n', '--name', default=None, help='Set project name')
 parser.add_argument('command', metavar='command', nargs=1, help='Amsterdam command [setup|start|stop|restart|update|rm])', default=None)
+parser.add_argument('-V',  '--version', action='version', version='%(prog)s ' + AMSTERDAM_VERSION)
 
 args = parser.parse_args()
 

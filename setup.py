@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 from setuptools import setup
+from src.amsterdam import AMSTERDAM_VERSION
 import os
 
 data_files = []
@@ -15,7 +16,7 @@ os.chdir('..')
 
 
 setup(name='amsterdam',
-      version='0.4',
+      version=AMSTERDAM_VERSION,
       description='Suricata, ELK, Scirius on Docker',
       author='Stamus Networks',
       author_email='oss@stamus-networks.com',

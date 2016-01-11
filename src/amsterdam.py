@@ -22,6 +22,8 @@ import subprocess
 import shutil
 from string import Template
 
+AMSTERDAM_VERSION = "0.5"
+
 class Amsterdam:
     def __init__(self, name, iface, basepath):
         self.name = name
