@@ -40,7 +40,12 @@ if args.data:
 if not args.name:
     args.name = os.path.basename(args.data)
 
-ams = Amsterdam(args.name, args.iface, basepath)
+try:
+    ams = Amsterdam(args.name, args.iface, basepath)
+except Exception as err:
+    sys.stderr.write("%s\n" % (err))
+    sys.exit(-1)
+
 if args.command[0] == 'setup':
     if ams.setup(args) != 0:
         sys.exit(-1)

@@ -27,6 +27,7 @@ class Amsterdam:
         self.name = name
         self.iface = iface
         self.basepath = os.path.abspath(basepath)
+        self.check_environment()
 
     def get_sys_data_dirs(self, component):
         this_dir, this_filename = os.path.split(__file__)
@@ -70,6 +71,16 @@ class Amsterdam:
                 else:
                     amsterdam_compose_file.write(bytes(amsterdam_grep, 'UTF-8'))
     
+    def check_environment(self):
+        docker_cmd = ['docker-compose', '-v']
+        try:
+            out = subprocess.check_output(docker_cmd)
+        except OSError as err:
+            if err.errno == 2:
+                pass
+                raise Exception("No docker-compose binary in path")
+        self.docker_compose_version = out.decode('UTF-8').split(': ')[1]
+
     def run_docker_compose(self, cmd, options = None):
         docker_cmd = ['docker-compose', '-p', self.name, '-f',
                       os.path.join(self.basepath, 'docker-compose.yml'), cmd]
