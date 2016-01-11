@@ -79,6 +79,8 @@ class Amsterdam:
         except UnicodeDecodeError:
             pass
             raise Exception("Name or data directory can't contain/finish with non ascii character")
+        if " " in self.name:
+            raise Exception("Name or data directory can't contain/finish with space")
 
         docker_cmd = ['docker-compose', '-v']
         try:
