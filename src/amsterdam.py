@@ -20,6 +20,7 @@ import os
 import sys
 import subprocess
 import shutil
+import re
 from string import Template
 
 AMSTERDAM_VERSION = "0.5"
@@ -99,7 +100,16 @@ class Amsterdam:
             if err.errno == 2:
                 pass
                 raise AmsterdamException("No docker-compose binary in path")
-        self.docker_compose_version = out.decode('UTF-8').split(': ')[1]
+        version = out.decode('UTF-8')
+        if ':' in version:
+            self.docker_compose_version = version.split(': ')[1]
+        elif ',' in version:
+            versionregexp = re.compile("([\d\.]+)")
+            match = versionregexp.search(version)
+            self.docker_compose_version = match.groups()[0]
+        else:
+            sys.stderr.write("docker-compose version number '%s' is not handled by code\n" % (version.rstrip()))
+            self.docker_compose_version = version
 
         docker_compose_path = os.path.join(os.getcwd(), self.basepath)
 
