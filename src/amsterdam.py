@@ -24,6 +24,16 @@ from string import Template
 
 AMSTERDAM_VERSION = "0.5"
 
+class AmsterdamException(Exception):
+    """
+    Generic class for Amsterdam exception
+    """
+    def __init__(self, value):
+        self.value = value
+
+    def __str__(self):
+        return self.value
+
 class Amsterdam:
     def __init__(self, name, iface, basepath):
         self.name = name
@@ -78,9 +88,9 @@ class Amsterdam:
             self.name.decode('ascii')
         except UnicodeDecodeError:
             pass
-            raise Exception("Name or data directory can't contain/finish with non ascii character")
+            raise AmsterdamException("Name or data directory can't contain/finish with non ascii character")
         if " " in self.name:
-            raise Exception("Name or data directory can't contain/finish with space")
+            raise AmsterdamException("Name or data directory can't contain/finish with space")
 
         docker_cmd = ['docker-compose', '-v']
         try:
@@ -88,7 +98,7 @@ class Amsterdam:
         except OSError as err:
             if err.errno == 2:
                 pass
-                raise Exception("No docker-compose binary in path")
+                raise AmsterdamException("No docker-compose binary in path")
         self.docker_compose_version = out.decode('UTF-8').split(': ')[1]
 
         docker_compose_path = os.path.join(os.getcwd(), self.basepath)

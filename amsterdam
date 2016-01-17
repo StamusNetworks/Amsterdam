@@ -18,7 +18,7 @@
 import sys
 import argparse
 import os.path
-from amsterdam import Amsterdam, AMSTERDAM_VERSION
+from amsterdam import Amsterdam, AmsterdamException, AMSTERDAM_VERSION
 
 parser = argparse.ArgumentParser(description='Amsterdam, SELKS on docker')
 parser.add_argument('-i', '--iface', default='eth0', help='Host iface to sniff')
@@ -43,7 +43,7 @@ if not args.name:
 
 try:
     ams = Amsterdam(args.name, args.iface, basepath)
-except Exception as err:
+except AmsterdamException as err:
     sys.stderr.write("%s\n" % (err))
     sys.exit(-1)
 
