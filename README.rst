@@ -26,6 +26,10 @@ You can install amsterdam from the source directory by running ::
 
  sudo python setup.py install
 
+Or you can use pip to install it ::
+
+ sudo pip install amsterdam
+
 Usage
 =====
 
