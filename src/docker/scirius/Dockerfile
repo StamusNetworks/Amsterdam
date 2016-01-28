@@ -17,6 +17,7 @@ RUN ln -sf /opt/selks/scirius-scirius-${VERSION} /opt/selks/scirius
 WORKDIR /opt/selks/scirius
 RUN pip install --upgrade six
 RUN pip install -r requirements.txt
+RUN pip install django-tables2==1.0.7
 RUN ln -s /etc/scirius/local_settings.py /opt/selks/scirius/scirius/
 ADD django/scirius.json /opt/selks/scirius/
 ADD django/scirius.sh /opt/selks/bin/
