@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Copyright (C) 2015 Stamus Networks
+# Copyright (C) 2015,2016 Stamus Networks
 #
 # You can copy, redistribute or modify this Program under the terms of
 # the GNU General Public License version 3 as published by the Free
@@ -23,7 +23,7 @@ import shutil
 import re
 from string import Template
 
-AMSTERDAM_VERSION = "0.5"
+AMSTERDAM_VERSION = "0.6"
 
 class AmsterdamException(Exception):
     """
