@@ -114,10 +114,12 @@ class Amsterdam:
         docker_compose_path = os.path.join(os.getcwd(), self.basepath)
 
         self.convertpath = False
-        try:
-            docker_compose_path.decode('ascii')
-        except UnicodeDecodeError:
-            self.convertpath = True
+        if os.environ.has_key('LANG'):
+            if not 'utf8' in os.environ['LANG']:
+                try:
+                    docker_compose_path.decode('ascii')
+                except UnicodeDecodeError:
+                    self.convertpath = True
 
     def run_docker_compose(self, cmd, options = None):
         localenv = os.environ.copy()
