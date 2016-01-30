@@ -15,6 +15,7 @@ WORKDIR /opt/selks
 RUN tar zxf /tmp/scirius-${VERSION}.tar.gz
 RUN ln -sf /opt/selks/scirius-scirius-${VERSION} /opt/selks/scirius
 WORKDIR /opt/selks/scirius
+RUN pip install --upgrade six
 RUN pip install -r requirements.txt
 RUN ln -s /etc/scirius/local_settings.py /opt/selks/scirius/scirius/
 ADD django/scirius.json /opt/selks/scirius/
