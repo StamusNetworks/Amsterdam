@@ -175,7 +175,8 @@ class Amsterdam:
         return True
 
     def update(self, args):
-        self.update_docker()
+        if args.full:
+            self.update_docker()
         self.run_docker_compose('pull')
         self.run_docker_compose('build', options = ['--no-cache'])
         return True

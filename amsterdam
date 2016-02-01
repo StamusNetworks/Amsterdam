@@ -21,10 +21,11 @@ import os.path
 from amsterdam import Amsterdam, AmsterdamException, AMSTERDAM_VERSION
 
 parser = argparse.ArgumentParser(description='Amsterdam, SELKS on docker')
-parser.add_argument('-i', '--iface', default='eth0', help='Host iface to sniff')
+parser.add_argument('-i', '--iface', default=None, help='Host iface to sniff')
 parser.add_argument('-v', '--verbose', default=False, action="count", help="Show verbose output, use multiple times increase verbosity")
 parser.add_argument('-d', '--data', default=None, help='Directory to store generated data into (default to ./data)')
 parser.add_argument('-n', '--name', default=None, help='Set project name')
+parser.add_argument('-f', '--full', default=False, const=True, action='store_const', help="Do a full update of instance. This will erase any modified version of Dockerfile")
 parser.add_argument('command', metavar='command', nargs=1, help='Amsterdam command [setup|start|stop|restart|update|rm])', default=None)
 parser.add_argument('-V',  '--version', action='version', version='%(prog)s ' + AMSTERDAM_VERSION)
 
@@ -48,6 +49,9 @@ except AmsterdamException as err:
     sys.exit(-1)
 
 if args.command[0] == 'setup':
+    if args.iface == None:
+        sys.stderr.write("You need to specify an interface with -i to setup the system\n")
+        sys.exit(-1)
     if ams.setup(args) != 0:
         sys.exit(-1)
 if args.command[0] == 'start':
@@ -63,6 +67,11 @@ elif args.command[0] == 'restart':
     if ams.restart(args) != 0:
         sys.exit(-1)
 elif args.command[0] == 'update':
+    if args.iface == None:
+        sys.stderr.write("You need to specify an interface with -i to update the system\n")
+        sys.exit(-1)
+    if not args.full:
+       print("Add -f flag if you want to update to latest version of docker files")
     if ams.update(args) != 0:
         sys.exit(-1)
 elif args.command[0] == 'rm':
