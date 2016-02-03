@@ -53,6 +53,13 @@ class Amsterdam:
             if not os.path.exists(dir_path):
                 os.makedirs(dir_path)
 
+    def update_files(self, source='docker'):
+        sourcetree = os.path.join(self.basepath, source)
+        if os.path.exists(sourcetree):
+            shutil.rmtree(sourcetree)
+        if os.path.exists(self.basepath):
+            shutil.copytree(self.get_sys_data_dirs(source), sourcetree)
+
     def update_config(self):
         try:
             shutil.copytree(self.get_sys_data_dirs('config'), os.path.join(self.basepath, 'config'))
@@ -63,11 +70,10 @@ class Amsterdam:
             pass
 
     def update_docker(self):
-        dockertree = os.path.join(self.basepath, 'docker')
-        if os.path.exists(dockertree):
-            shutil.rmtree(dockertree)
-        if os.path.exists(self.basepath):
-            shutil.copytree(self.get_sys_data_dirs('docker'), dockertree)
+        return self.update_files('docker')
+
+    def update_config_files(self):
+        return self.update_files('config')
     
     def generate_template(self, options):
         template_path = os.path.join(self.get_sys_data_dirs('templates'), 'docker-compose.yml.j2')
@@ -144,16 +150,19 @@ class Amsterdam:
             docker_cmd.extend(options)
         return subprocess.call(docker_cmd, env = localenv)
     
+    def setup_options(self, args):
+        self.options = {}
+        self.options['capture_option'] =  "--af-packet=%s" % args.iface
+        self.options['basepath'] = self.basepath
+        self.options['iface'] = args.iface
+
     def setup(self, args):
-        options = {}
-        options['capture_option'] =  "--af-packet=%s" % args.iface
-        options['basepath'] = self.basepath
-        options['iface'] = args.iface
+        self.setup_options(args)
         if args.verbose:
             sys.stdout.write("Generating docker compose file\n")
         self.create_data_dirs()
         self.update_config()
-        self.generate_template(options)    
+        self.generate_template(self.options)    
         return 0
 
     def start(self, args):
@@ -176,7 +185,10 @@ class Amsterdam:
 
     def update(self, args):
         if args.full:
+            self.setup_options(args)
+            self.generate_template(self.options)    
             self.update_docker()
+            self.update_config_files()
         self.run_docker_compose('pull')
         self.run_docker_compose('build', options = ['--no-cache'])
         return True
