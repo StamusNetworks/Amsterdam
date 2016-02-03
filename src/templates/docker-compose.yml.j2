@@ -19,7 +19,7 @@ elasticsearch:
         - $basepath/elasticsearch:/usr/share/elasticsearch/data:rw
 
 logstash:
-    image: logstash:2.1
+    image: logstash:2.2
     links:
         - elasticsearch
     command: -f /etc/logstash/logstash.conf
