@@ -67,13 +67,18 @@ and remove the data directory if you want to delete data.
 Updating
 ========
 
-When code is updated (new suricata package or new ELK versions), you can run ::
+When code is updated (new suricata package or new ELK versions), you can run (supposing your
+suricata listen on eth0) ::
 
- amsterdam -d ams update
+ amsterdam -d ams -i eth0 update
 
 Then, you can restart the services ::
 
  amsterdam -d ams restart
+
+To do a complete update including Docker recipes and configuration files ::
+
+ amsterdam -d ams -f -i eth0 update
 
 Tuning and coding
 =================
