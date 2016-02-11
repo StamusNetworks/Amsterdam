@@ -22,7 +22,7 @@ logstash:
     image: logstash:2.2
     links:
         - elasticsearch
-    command: -f /etc/logstash/logstash.conf
+    command: /opt/logstash/bin/logstash -f /etc/logstash/conf.d/ 
     volumes:
         - $basepath/config/logstash:/etc/logstash:ro
         - $basepath/suricata:/var/log/suricata:ro
