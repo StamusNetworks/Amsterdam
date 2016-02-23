@@ -11,4 +11,4 @@ COPY suri_reloader /usr/local/sbin/suri_reloader
 run chmod +x /usr/local/sbin/suri_reloader
 run mkdir /var/run/suricata/
 
-CMD ["/usr/bin/supervisord", "-n"]
+CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf"]
