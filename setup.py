@@ -26,7 +26,7 @@ setup(name='amsterdam',
       package_dir={'amsterdam':'src'},
       package_data={'amsterdam': data_files},
       provides=['amsterdam'],
-      requires=['argparse'],
+      requires=['argparse', 'docker-compose'],
       classifiers=[
           'Development Status :: 3 - Alpha',
           'Environment :: Console',
