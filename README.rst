@@ -22,6 +22,9 @@ applies to scirius and suricata where the `/etc/suricata/rules` directory is sha
 Installation
 ============
 
+Generic
+-------
+
 You can install amsterdam from the source directory by running ::
 
  sudo python setup.py install
@@ -30,30 +33,28 @@ Or you can use pip to install it ::
 
  sudo pip install amsterdam
 
-Usage
-=====
-
 Debian
 ------
 
 You need to install Docker compose. On Debian ::
 
- sudo apt-get install docker-compose
+ sudo apt-get install docker.io docker-compose python-pip
+ sudo pip install amsterdam
 
 Ubuntu
 ------
 
 On ubuntu, you can run ::
 
- sudo apt-get install docker.io
+ sudo apt-get install docker.io python-pip
  sudo pip install docker-compose
 
 On Ubuntu 16.04 you need to export a variable to get docker and docker-compose in sync ::
 
  export COMPOSE_API_VERSION=1.18
 
-Running it
-----------
+Usage
+=====
 
 To sniff the `wlan0` interface and store data and config in the `ams` directory,
 you can run ::
