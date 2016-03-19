@@ -524,7 +524,7 @@ legacy:
 
 # You can specify a threshold config file by setting "threshold-file"
 # to the path of the threshold config file:
-# threshold-file: /etc/suricata/threshold.config
+threshold-file: /etc/suricata/rules/threshold.config
 
 # The detection engine builds internal groups of signatures. The engine
 # allow us to specify the profile to use for them, to manage memory on an
