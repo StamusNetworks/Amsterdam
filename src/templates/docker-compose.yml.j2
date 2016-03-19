@@ -40,6 +40,7 @@ scirius:
      - 8000:8000
     volumes:
         - $basepath/config/scirius:/etc/scirius:ro
+        - $basepath/config/suricata/suricata.yaml:/etc/suricata/suricata.yaml:ro
         - $basepath/scirius:/etc/suricata/rules:rw
         - $basepath/suricata/run:/var/run/suricata:ro
         # TODO uncomment correctly set path to scirius git tree on host below
