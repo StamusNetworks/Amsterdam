@@ -30,4 +30,7 @@ else
 	migrate_db
 fi
 
+# update requirements if needed
+pip install -r requirements.txt
+
 start
