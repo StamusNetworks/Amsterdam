@@ -23,7 +23,7 @@ import shutil
 import re
 from string import Template
 
-AMSTERDAM_VERSION = "0.6"
+AMSTERDAM_VERSION = "0.7"
 
 class AmsterdamException(Exception):
     """
