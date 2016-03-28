@@ -24,13 +24,13 @@ start() {
 	python manage.py runserver 0.0.0.0:8000
 }
 
+# update requirements if needed
+pip install -r requirements.txt
+
 if [ ! -e "/sciriusdata/scirius.sqlite3" ]; then
 	create_db
 else
 	migrate_db
 fi
-
-# update requirements if needed
-pip install -r requirements.txt
 
 start
