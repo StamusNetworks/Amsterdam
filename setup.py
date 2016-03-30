@@ -9,7 +9,7 @@ os.chdir('src')
 for directory in dir_list:
     for (dir, _, files) in os.walk(directory):
         for f in files:
-            if not f.startswith('.'):
+            if not f.startswith('.') and not f.endswith('pyc'):
                 path = os.path.join(dir, f)
                 data_files.append(path)
 os.chdir('..')
