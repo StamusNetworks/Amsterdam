@@ -36,7 +36,7 @@ Or you can use pip to install it ::
 Debian
 ------
 
-You need to install Docker compose. On Debian ::
+You need to install Docker. On Debian ::
 
  sudo apt-get install docker.io docker-compose python-pip
  sudo pip install amsterdam
@@ -47,7 +47,7 @@ Ubuntu
 On ubuntu, you can run ::
 
  sudo apt-get install docker.io python-pip
- sudo pip install docker-compose
+ sudo pip install amsterdam
 
 On Ubuntu 16.04 you need to export a variable to get docker and docker-compose in sync ::
 
