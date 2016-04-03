@@ -11,12 +11,14 @@ SURICATA_UNIX_SOCKET = "/var/run/suricata/suricata-command.socket"
 
 USE_KIBANA = True
 KIBANA_PROXY = True
+KIBANA_DASHBOARDS_COUNT = 25
 
 USE_EVEBOX = True
 EVEBOX_ADDRESS = "evebox:5636"
 
 USE_SURICATA_STATS = True
 USE_LOGSTASH_STATS = True
+ELASTICSEARCH_LOGSTASH_ALERT_INDEX="logstash-alert-"
 
 DATA_DIR = "/sciriusdata/"
 
