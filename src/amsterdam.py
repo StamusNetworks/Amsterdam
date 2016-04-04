@@ -22,6 +22,8 @@ import subprocess
 import shutil
 import re
 from string import Template
+from OpenSSL import crypto
+from socket import gethostname
 
 AMSTERDAM_VERSION = "0.7"
 
@@ -162,7 +164,8 @@ class Amsterdam:
             sys.stdout.write("Generating docker compose file\n")
         self.create_data_dirs()
         self.update_config()
-        self.generate_template(self.options)    
+        self.generate_template(self.options)
+        self.create_self_signed_cert()
         return 0
 
     def start(self, args):
@@ -192,3 +195,33 @@ class Amsterdam:
         self.run_docker_compose('pull')
         self.run_docker_compose('build', options = ['--no-cache'])
         return True
+
+    def create_self_signed_cert(self):
+        k = crypto.PKey()
+        k.generate_key(crypto.TYPE_RSA, 1024)
+ 
+        # CREATE A SELF-SIGNED CERT
+        cert = crypto.X509()
+        cert.get_subject().C = "FR"
+        cert.get_subject().ST = "Paris"
+        cert.get_subject().L = "Paris"
+        cert.get_subject().O = "Stamus Networks"
+        cert.get_subject().OU = "Amsterdam"
+        cert.get_subject().CN = gethostname()
+        cert.set_serial_number(1000)
+        cert.gmtime_adj_notBefore(0)
+        cert.gmtime_adj_notAfter(365*24*60*60)
+        cert.set_issuer(cert.get_subject())
+        cert.set_pubkey(k)
+        cert.sign(k, 'sha256')
+        # export 
+
+        dir_path =  os.path.join(self.basepath, 'config', 'nginx', 'ssl')
+        if not os.path.exists(dir_path):
+            os.makedirs(dir_path)
+        cert_file =  os.path.join(dir_path, 'amsterdam.crt')
+        key_file =  os.path.join(dir_path, 'amsterdam.key')
+        open(cert_file, "wt").write(
+            crypto.dump_certificate(crypto.FILETYPE_PEM, cert))
+        open(key_file, "wt").write(
+            crypto.dump_privatekey(crypto.FILETYPE_PEM, k))
