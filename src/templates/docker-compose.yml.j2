@@ -29,15 +29,11 @@ logstash:
 
 kibana:
     build: $basepath/docker/kibana
-    ports:
-     - 5601:5601
     links:
         - elasticsearch
 
 scirius:
     build: $basepath/docker/scirius
-    ports:
-     - 8000:8000
     volumes:
         - $basepath/config/scirius:/etc/scirius:ro
         - $basepath/config/suricata/suricata.yaml:/etc/suricata/suricata.yaml:ro
@@ -60,7 +56,12 @@ sciriusdata:
 
 evebox:
     image: jasonish/evebox:latest
-    ports:
-        - 5636:5636
     links:
         - elasticsearch
+
+nginx:
+    image: nginx
+    volumes: 
+        - $basepath/config/nginx:/etc/nginx:ro
+    links:
+        - scirius
