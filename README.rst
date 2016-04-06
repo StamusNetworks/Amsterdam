@@ -69,9 +69,12 @@ Subsequent run should take less than 1 minute.
 
 You can then connect to:
 
- - http://localhost:8000 on scirius with scirius/scirius as login/password 
- - http://localhost:5601 on kibana 4
- - http://localhost:5636/ on evebox
+ - https://localhost/ on scirius with scirius/scirius as login/password 
+ - https://localhost/kibana/ on kibana
+ - https://localhost/evebox/ on evebox
+
+The HTTPS server is accessible from outside so you can connect to IP or hostname from
+there. So don't forget to change the default password.
 
 To stop the amsterdam instance, run ::
 
