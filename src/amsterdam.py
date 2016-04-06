@@ -21,6 +21,7 @@ import sys
 import subprocess
 import shutil
 import re
+import time
 from string import Template
 from OpenSSL import crypto
 from socket import gethostname
@@ -208,7 +209,7 @@ class Amsterdam:
         cert.get_subject().O = "Stamus Networks"
         cert.get_subject().OU = "Amsterdam"
         cert.get_subject().CN = gethostname()
-        cert.set_serial_number(1000)
+        cert.set_serial_number(int(time.time() * 10))
         cert.gmtime_adj_notBefore(0)
         cert.gmtime_adj_notAfter(365*24*60*60)
         cert.set_issuer(cert.get_subject())
