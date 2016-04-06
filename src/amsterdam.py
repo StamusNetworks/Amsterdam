@@ -193,6 +193,7 @@ class Amsterdam:
             self.generate_template(self.options)    
             self.update_docker()
             self.update_config_files()
+            self.create_self_signed_cert()
         self.run_docker_compose('pull')
         self.run_docker_compose('build', options = ['--no-cache'])
         return True
