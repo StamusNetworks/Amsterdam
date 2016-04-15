@@ -4,6 +4,7 @@ cd /opt/selks/scirius/
 
 migrate_db() {
 	python manage.py migrate
+	python manage.py collectstatic  --noinput
 }
 
 create_db() {
@@ -18,10 +19,11 @@ create_db() {
 	python manage.py disablecategory "Default SELKS ruleset" stream-events
 	python manage.py addsuricata suricata "Suricata on SELKS" /etc/suricata/rules "Default SELKS ruleset"
 	python manage.py updatesuricata
+	python manage.py collectstatic --noinput
 }
 
 start() {
-	python manage.py runserver 0.0.0.0:8000
+	gunicorn -b 0.0.0.0:8000 scirius.wsgi
 }
 
 # update requirements if needed

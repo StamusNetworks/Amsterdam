@@ -48,12 +48,19 @@ scirius:
         - evebox
     volumes_from:
         - sciriusdata
+        - sciriusstatic
 
 sciriusdata:
     image: busybox
     command: /bin/true
     volumes:
         - /sciriusdata
+
+sciriusstatic:
+    image: busybox
+    command: /bin/true
+    volumes:
+        - /sciriusstatic
 
 evebox:
     image: jasonish/evebox:latest
@@ -69,3 +76,5 @@ nginx:
         - $basepath/config/nginx/ssl/:/etc/nginx/ssl/:ro
     links:
         - scirius
+    volumes_from:
+        - sciriusstatic

@@ -21,6 +21,7 @@ USE_LOGSTASH_STATS = True
 ELASTICSEARCH_LOGSTASH_ALERT_INDEX="logstash-alert-"
 
 DATA_DIR = "/sciriusdata/"
+STATIC_ROOT = "/sciriusstatic/"
 
 DATABASES = {
     'default': {
@@ -30,3 +31,5 @@ DATABASES = {
 }
 
 GIT_SOURCES_BASE_DIRECTORY = os.path.join(DATA_DIR, 'git-sources/')
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
