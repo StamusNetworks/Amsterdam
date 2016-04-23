@@ -1,6 +1,6 @@
 FROM debian:latest
 
-ENV VERSION 1.1.6
+ENV VERSION 1.1.7
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y wget python-pip python-dev git gcc gunicorn
 ADD stamus-packages.list /etc/apt/sources.list.d/
