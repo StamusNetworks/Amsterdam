@@ -409,7 +409,7 @@ af-packet:
     # Default clusterid.  AF_PACKET will load balance packets based on flow.
     # All threads/processes that will participate need to have the same
     # clusterid.
-    cluster-id: 99
+    cluster-id: 42
     # Default AF_PACKET cluster type. AF_PACKET can load balance per flow or per hash.
     # This is only supported for Linux kernel > 3.1
     # possible value are:
