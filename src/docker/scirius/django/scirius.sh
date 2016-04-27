@@ -11,7 +11,7 @@ create_db() {
 	echo "no" | python manage.py syncdb
 	#echo "no" | python manage.py syncdb --settings=scirius.local_settings
 	python manage.py migrate
-	python manage.py loaddata /opt/selks/scirius/scirius.json
+	python manage.py loaddata /tmp/scirius.json
 	python manage.py createcachetable my_cache_table
 	python manage.py addsource "ETOpen Ruleset" https://rules.emergingthreats.net/open/suricata-3.0/emerging.rules.tar.gz http sigs
 	python manage.py addsource "SSLBL abuse.ch" https://sslbl.abuse.ch/blacklist/sslblacklist.rules http sig

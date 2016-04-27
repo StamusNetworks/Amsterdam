@@ -18,7 +18,7 @@ WORKDIR /opt/selks/scirius
 RUN pip install --upgrade six
 RUN pip install -r requirements.txt
 RUN ln -s /etc/scirius/local_settings.py /opt/selks/scirius/scirius/
-ADD django/scirius.json /opt/selks/scirius/
+ADD django/scirius.json /tmp/
 ADD django/scirius.sh /opt/selks/bin/
 RUN chmod ugo+x /opt/selks/bin/scirius.sh
 
