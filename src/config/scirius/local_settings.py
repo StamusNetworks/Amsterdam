@@ -33,3 +33,7 @@ DATABASES = {
 GIT_SOURCES_BASE_DIRECTORY = os.path.join(DATA_DIR, 'git-sources/')
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+DBBACKUP_STORAGE = 'dbbackup.storage.filesystem_storage'
+DBBACKUP_STORAGE_OPTIONS = {'location': '/var/backups/'}
+
