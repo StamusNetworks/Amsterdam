@@ -36,6 +36,7 @@ scirius:
     build: $basepath/docker/scirius
     volumes:
         - $basepath/config/scirius:/etc/scirius:ro
+        - $basepath/backups:/var/backups:rw
         - $basepath/config/suricata/suricata.yaml:/etc/suricata/suricata.yaml:ro
         - $basepath/scirius:/etc/suricata/rules:rw
         - $basepath/suricata/run:/var/run/suricata:ro
