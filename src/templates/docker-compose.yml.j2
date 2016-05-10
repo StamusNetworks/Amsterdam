@@ -39,6 +39,7 @@ scirius:
         - $basepath/config/suricata/suricata.yaml:/etc/suricata/suricata.yaml:ro
         - $basepath/scirius:/etc/suricata/rules:rw
         - $basepath/suricata/run:/var/run/suricata:ro
+        - $basepath/backups:/var/backups:rw
         # TODO uncomment correctly set path to scirius git tree on host below
         # to run a specific scirius version
         #- /path/to/git/stamus/scirius/:/opt/selks/scirius/:ro
