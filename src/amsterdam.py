@@ -51,7 +51,7 @@ class Amsterdam:
         return datadir
 
     def create_data_dirs(self):
-        for directory in ['scirius', 'suricata', 'elasticsearch']:
+        for directory in ['scirius', 'suricata', 'elasticsearch', 'backups']:
             dir_path = os.path.join(self.basepath, directory)
             if not os.path.exists(dir_path):
                 os.makedirs(dir_path)
