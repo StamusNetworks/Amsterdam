@@ -131,6 +131,16 @@ outputs:
             # custom allows additional http fields to be included in eve-log
             # the example below adds three additional fields when uncommented
             #custom: [Accept-Encoding, Accept-Language, Authorization]
+            custom: [accept, accept-charset, accept-encoding, accept-language,
+            accept-datetime, authorization, cache-control, cookie, from,
+            max-forwards, origin, pragma, proxy-authorization, range, te, via,
+            x-requested-with, dnt, x-forwarded-proto, accept-range, age,
+            allow, connection, content-encoding, content-language,
+            content-length, content-location, content-md5, content-range,
+            content-type, date, etags, last-modified, link, location,
+            proxy-authenticate, referrer, refresh, retry-after, server,
+            set-cookie, trailer, transfer-encoding, upgrade, vary, warning,
+            www-authenticate]
         - dns
         - tls:
             extended: yes     # enable this for extended logging information
