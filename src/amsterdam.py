@@ -26,7 +26,7 @@ from string import Template
 from OpenSSL import crypto
 from socket import gethostname
 
-AMSTERDAM_VERSION = "0.7"
+AMSTERDAM_VERSION = "0.8"
 
 class AmsterdamException(Exception):
     """
