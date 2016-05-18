@@ -91,7 +91,7 @@ class Amsterdam:
                 if sys.version < '3':
                     amsterdam_compose_file.write(amsterdam_config)
                 else:
-                    amsterdam_compose_file.write(bytes(amsterdam_grep, 'UTF-8'))
+                    amsterdam_compose_file.write(bytes(amsterdam_config, 'UTF-8'))
         template_path = os.path.join(self.get_sys_data_dirs('templates'), 'ethtool.conf.j2')
         with open(template_path, 'r') as ethtool_file:
             # get the string and build template
@@ -100,11 +100,11 @@ class Amsterdam:
         
             ethtool_config = ethtool_config_tmpl.substitute(options)
         
-            with open(os.path.join(self.basepath, 'docker', 'suricata', 'supervisor.d', 'ethtool.conf'), 'w') as ethtool_compose_file:
-                if sys.version < '3':
-                    ethtool_compose_file.write(ethtool_config)
-                else:
-                    ethtool_compose_file.write(bytes(ethtool_grep, 'UTF-8'))
+        with open(os.path.join(self.basepath, 'config', 'suricata', 'ethtool.conf'), 'w') as ethtool_compose_file:
+            if sys.version < '3':
+                ethtool_compose_file.write(ethtool_config)
+            else:
+                ethtool_compose_file.write(bytes(ethtool_config, 'UTF-8'))
 
     def check_environment(self):
         try:
@@ -190,10 +190,10 @@ class Amsterdam:
     def update(self, args):
         if args.full:
             self.setup_options(args)
-            self.generate_template(self.options)    
             self.update_docker()
             self.update_config_files()
             self.create_self_signed_cert()
+            self.generate_template(self.options)
         self.run_docker_compose('pull')
         self.run_docker_compose('build', options = ['--no-cache'])
         return True
