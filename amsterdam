@@ -70,8 +70,6 @@ elif args.command[0] == 'update':
     if args.iface == None:
         sys.stderr.write("You need to specify an interface with -i to update the system\n")
         sys.exit(-1)
-    if not args.full:
-       print("Add -f flag if you want to update to latest version of docker files")
     if ams.update(args) != 0:
         sys.exit(-1)
 elif args.command[0] == 'rm':
