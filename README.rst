@@ -29,7 +29,7 @@ You can install amsterdam from the source directory by running ::
 
  sudo python setup.py install
 
-Or you can use pip to install it ::
+Or you can use pip to install latest released version ::
 
  sudo pip install amsterdam
 
@@ -44,7 +44,7 @@ You need to install Docker. On Debian ::
 Ubuntu
 ------
 
-On ubuntu, you can run ::
+On Ubuntu, you can run ::
 
  sudo apt-get install docker.io python-pip
  sudo pip install amsterdam
@@ -63,7 +63,7 @@ you can run ::
  amsterdam -d ams start
 
 As of now the start command will take really long on first run as it will fetch from Docker hub
-all the necessary images and build some custom container based on Debian.
+all the necessary images and build some custom containers.
 
 Subsequent run should take less than 1 minute.
 
