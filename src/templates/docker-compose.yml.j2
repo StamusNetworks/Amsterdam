@@ -17,6 +17,7 @@ elasticsearch:
     command: -Des.network.bind_host=0.0.0.0
     volumes:
         - $basepath/elasticsearch:/usr/share/elasticsearch/data:rw
+        - $basepath/config/elasticsearch:/usr/share/elasticsearch/config:ro
 
 logstash:
     build: $basepath/docker/logstash
