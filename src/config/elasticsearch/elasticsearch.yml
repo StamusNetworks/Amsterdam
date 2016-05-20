@@ -117,9 +117,6 @@ index.refresh_interval: 20s
 # Limit fielddata cache 
 indices.fielddata.cache.size: 35%
 
-# Enable Kibana logging
-http.cors.enabled: true
-
 # as per
 # https://www.elastic.co/guide/en/elasticsearch/guide/current/heap-sizing.html
 # to help facilitate having everything on the same machine
@@ -128,7 +125,5 @@ cluster.routing.allocation.same_shard.host: true
 # SELKS is all-in-one distro so we disable replicas
 index.number_of_replicas: 0
 
-# avoid issues with IP changes
-network.bind_host: 127.0.0.1
 
 
