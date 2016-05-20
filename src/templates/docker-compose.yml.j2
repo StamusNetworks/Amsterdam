@@ -14,7 +14,7 @@ suricata:
 
 elasticsearch:
     build: $basepath/docker/elasticsearch
-    command: -Des.network.bind_host=0.0.0.0
+    command: -Des.network.bind_host=0.0.0.0 -Des.index.number_of_replicas=0
     volumes:
         - $basepath/elasticsearch:/usr/share/elasticsearch/data:rw
 
