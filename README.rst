@@ -89,6 +89,22 @@ and remove the data directory if you want to delete data.
 Updating
 ========
 
+Updating amsterdam
+------------------
+
+For installation done via setup.py, you can just update the source code and
+rerun the installation procedure ::
+
+ git pull
+ sudo python setup.py install
+
+For installation done via pip, one can run ::
+
+ pip install --upgrade --no-deps amsterdam
+
+Updating an instance
+--------------------
+
 When code is updated (new suricata package or new ELK versions), you can run (supposing your
 suricata listen on eth0) ::
 
