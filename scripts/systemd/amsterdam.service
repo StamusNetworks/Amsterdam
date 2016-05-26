@@ -1,0 +1,10 @@
+[Unit]
+Description=Amsterdam
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/amsterdam -d /opt/ams start
+ExecStop=/usr/bin/amsterdam -d /opt/ams stop
+
+[Install]
+WantedBy=multi-user.target
