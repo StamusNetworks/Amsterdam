@@ -138,3 +138,23 @@ Once done, you can restart the services ::
 Run a migration inside the container ::
 
  docker exec ams_scirius_1 python /opt/selks/scirius/manage.py migrate
+ 
+Backup
+======
+ Backups in the scirius container are shared with the host. `/var/backups` directory is shared in `$basepath/backups` on the host.
+ 
+ To start a backup, run ::
+ 
+  docker exec ams_scirius_1 python /opt/selks/scirius/manage.py scbackup
+ 
+ To restore a backup and erase all your data, you can run ::
+ 
+  docker exec ams_scirius_1 python /opt/selks/scirius/manage.py screstore
+  docker exec ams_scirius_1 python /opt/selks/scirius/manage.py migrate
+ 
+ This will restore the latest backup. To choose another backup, indicate a backup filename as first argument.
+ To get list of available backup, use ::
+ 
+  docker exec ams_scirius_1 python /opt/selks/scirius/manage.py listbackups
+ 
+ You can not restore a backup to a scirius which is older than the one where the backup has been done.
