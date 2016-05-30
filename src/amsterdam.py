@@ -25,6 +25,7 @@ import time
 from string import Template
 from OpenSSL import crypto
 from socket import gethostname
+from docker import Client
 
 AMSTERDAM_VERSION = "0.8"
 
@@ -115,9 +116,13 @@ class Amsterdam:
         if " " in self.name:
             raise AmsterdamException("Name or data directory can't contain/finish with space")
 
+        self.api_version = Client().version()['ApiVersion']
+
+        self.env = os.environ.copy()
+        self.env["COMPOSE_API_VERSION"] = self.api_version
         docker_cmd = ['docker-compose', '-v']
         try:
-            out = subprocess.check_output(docker_cmd)
+            out = subprocess.check_output(docker_cmd, env=self.env)
         except OSError as err:
             if err.errno == 2:
                 pass
@@ -142,16 +147,15 @@ class Amsterdam:
                     docker_compose_path.decode('ascii')
                 except UnicodeDecodeError:
                     self.convertpath = True
+        if self.convertpath:
+            self.env['LANG'] = "en_US.utf8"
 
     def run_docker_compose(self, cmd, options = None):
-        localenv = os.environ.copy()
-        if self.convertpath:
-            localenv['LANG'] = "en_US.utf8"
         docker_cmd = ['docker-compose', '-p', self.name, '-f',
                       os.path.join(self.basepath, 'docker-compose.yml'), cmd]
         if options:
             docker_cmd.extend(options)
-        return subprocess.call(docker_cmd, env = localenv)
+        return subprocess.call(docker_cmd, env = self.env)
     
     def setup_options(self, args):
         self.options = {}
