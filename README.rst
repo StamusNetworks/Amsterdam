@@ -49,10 +49,6 @@ On Ubuntu, you can run ::
  sudo apt-get install docker.io python-pip
  sudo pip install amsterdam
 
-On Ubuntu 16.04 you need to export a variable to get docker and docker-compose in sync ::
-
- export COMPOSE_API_VERSION=1.18
-
 Usage
 =====
 
