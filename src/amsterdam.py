@@ -27,7 +27,7 @@ from OpenSSL import crypto
 from socket import gethostname
 from docker import Client
 
-AMSTERDAM_VERSION = "0.8"
+AMSTERDAM_VERSION = "1.0"
 
 class AmsterdamException(Exception):
     """
