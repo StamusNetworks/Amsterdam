@@ -1,5 +1,7 @@
 [Unit]
 Description=Amsterdam
+After=docker.service
+Requires=docker.service
 
 [Service]
 Type=simple
