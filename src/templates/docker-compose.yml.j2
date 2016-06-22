@@ -6,7 +6,9 @@ suricata:
         - $basepath/suricata/run/:/var/run/suricata:rw
         - $basepath/config/suricata/ethtool.conf:/etc/supervisor/conf.d/ethtool.conf:ro
         - $basepath/scirius/:/etc/suricata/rules:rw
-    privileged: true
+    cap_add:
+        - NET_ADMIN
+        - NET_RAW
     net: host
     # TODO set your suricata iface here
     environment:
