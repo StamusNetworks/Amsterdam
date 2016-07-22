@@ -21,7 +21,7 @@ elasticsearch:
         - $basepath/elasticsearch:/usr/share/elasticsearch/data:rw
 
 logstash:
-    build: $basepath/docker/logstash
+    image: logstash
     links:
         - elasticsearch
     command: /opt/logstash/bin/logstash -f /etc/logstash/conf.d/ 
