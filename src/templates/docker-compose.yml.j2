@@ -21,7 +21,7 @@ elasticsearch:
         - $basepath/elasticsearch:/usr/share/elasticsearch/data:rw
 
 logstash:
-    image: logstash
+    image: logstash:2
     links:
         - elasticsearch
     command: /opt/logstash/bin/logstash -f /etc/logstash/conf.d/ 
