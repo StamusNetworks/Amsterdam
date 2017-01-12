@@ -28,7 +28,7 @@ from socket import gethostname
 from docker import Client
 import requests
 
-AMSTERDAM_VERSION = "1.1"
+AMSTERDAM_VERSION = "1.2"
 
 class AmsterdamException(Exception):
     """
