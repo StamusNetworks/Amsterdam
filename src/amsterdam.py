@@ -26,6 +26,7 @@ from string import Template
 from OpenSSL import crypto
 from socket import gethostname
 from docker import Client
+import requests
 
 AMSTERDAM_VERSION = "1.1"
 
@@ -107,6 +108,16 @@ class Amsterdam:
             else:
                 ethtool_compose_file.write(bytes(ethtool_config, 'UTF-8'))
 
+    def get_api_version(self, i = 0):
+        try:
+            self.api_version = Client().version()['ApiVersion']
+        except requests.exceptions.ReadTimeout:
+            if i < 4:
+                i += 1
+                self.get_api_version(i = i)
+            else:
+                raise AmsterdamException("Unable to get version from Docker")
+
     def check_environment(self):
         try:
             self.name.decode('ascii')
@@ -116,7 +127,7 @@ class Amsterdam:
         if " " in self.name:
             raise AmsterdamException("Name or data directory can't contain/finish with space")
 
-        self.api_version = Client().version()['ApiVersion']
+        self.get_api_version()
 
         self.env = os.environ.copy()
         self.env["COMPOSE_API_VERSION"] = self.api_version
