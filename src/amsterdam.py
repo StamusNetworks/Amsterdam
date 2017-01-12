@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Copyright (C) 2015,2016 Stamus Networks
+# Copyright (C) 2015-2017 Stamus Networks
 #
 # You can copy, redistribute or modify this Program under the terms of
 # the GNU General Public License version 3 as published by the Free
