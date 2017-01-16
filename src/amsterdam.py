@@ -15,6 +15,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
+from __future__ import print_function
 
 import os
 import sys
@@ -25,7 +26,16 @@ import time
 from string import Template
 from OpenSSL import crypto
 from socket import gethostname
-from docker import Client
+
+try:
+    from docker import APIClient as Client
+except ImportError:
+    try:
+        from docker import Client
+    except ImportError:
+        print("Unable to import docker-py Client module", file=sys.stderr)
+        sys.exit(-1)
+
 import requests
 
 AMSTERDAM_VERSION = "1.2"
