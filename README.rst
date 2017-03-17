@@ -38,7 +38,7 @@ Debian
 
 You need to install Docker. On Debian ::
 
- sudo apt-get install docker.io docker-compose python-pip
+ sudo apt-get install docker.io docker-compose python-pip python-docker
  sudo pip install amsterdam
 
 Ubuntu
