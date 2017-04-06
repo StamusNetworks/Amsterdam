@@ -1,5 +1,7 @@
 import os
 
+ALLOWED_HOSTS = ['*']
+
 USE_ELASTICSEARCH = True
 ELASTICSEARCH_ADDRESS = "elasticsearch:9200"
 ELASTICSEARCH_2X = True
