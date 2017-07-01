@@ -16,19 +16,23 @@ suricata:
 
 elasticsearch:
     build: $basepath/docker/elasticsearch
-    command: -Des.network.bind_host=0.0.0.0 -Des.index.number_of_replicas=0
+    environment:
+        - http.host=0.0.0.0
     volumes:
         - $basepath/elasticsearch:/usr/share/elasticsearch/data:rw
 
 logstash:
-    image: logstash:2
+    image: docker.elastic.co/logstash/logstash:5.4.3
     links:
         - elasticsearch
-    command: /opt/logstash/bin/logstash -f /etc/logstash/conf.d/ 
     volumes:
-        - $basepath/config/logstash:/etc/logstash:ro
+        - $basepath/config/logstash:/usr/share/logstash/pipeline:ro
         - $basepath/suricata:/var/log/suricata:ro
     hostname: suricata
+    environment:
+        - XPACK_MONITORING_ENABLED=false
+        #- LOG_LEVEL=debug
+
 
 kibana:
     build: $basepath/docker/kibana
@@ -36,7 +40,7 @@ kibana:
         - elasticsearch
 
 scirius:
-    image: stamus/scirius
+    image: stamus/scirius:elk5
     volumes:
         - $basepath/config/scirius:/etc/scirius:ro
         - $basepath/config/suricata/suricata.yaml:/etc/suricata/suricata.yaml:ro
