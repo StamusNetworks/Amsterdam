@@ -26,7 +26,7 @@ logstash:
     links:
         - elasticsearch
     volumes:
-        - $basepath/config/logstash:/usr/share/logstash/pipeline:ro
+        - $basepath/config/logstash/conf.d:/usr/share/logstash/pipeline:ro
         - $basepath/suricata:/var/log/suricata:ro
     hostname: suricata
     environment:
