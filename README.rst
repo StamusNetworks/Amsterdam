@@ -49,6 +49,13 @@ On Ubuntu, you can run ::
  sudo apt-get install docker.io python-pip
  sudo pip install amsterdam
 
+Docker
+------
+If you don't want to install any dependancies on your machine, you can run Amsterdam itself in Docker. For this to work, we must mount the host's Docker socket like so: ::
+
+ docker build -t amsterdam . && \
+ docker run --rm -v /var/run/docker.sock:/var/run/docker.sock amsterdam
+
 Usage
 =====
 
