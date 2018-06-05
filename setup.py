@@ -26,7 +26,7 @@ setup(name='amsterdam',
       package_dir={'amsterdam':'src'},
       package_data={'amsterdam': data_files},
       provides=['amsterdam'],
-      install_requires=['argparse', "docker-compose", 'pyOpenSSL'],
+      install_requires=['argparse==1.4.0', "docker-compose==1.9.0", 'pyOpenSSL==18.0.0'],
       classifiers=[
           'Development Status :: 5 - Production/Stable',
           'Environment :: Console',
