@@ -67,6 +67,8 @@ class Amsterdam:
             dir_path = os.path.join(self.basepath, directory)
             if not os.path.exists(dir_path):
                 os.makedirs(dir_path)
+                #if directory == 'elasticsearch':
+                #    os.chown(dir_path, 1000, 1000)
 
     def update_files(self, source='docker'):
         sourcetree = os.path.join(self.basepath, source)

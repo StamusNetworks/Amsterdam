@@ -1,3 +1,5 @@
-FROM elasticsearch:2.4
+FROM docker.elastic.co/elasticsearch/elasticsearch:5.4.3
 
-RUN /usr/share/elasticsearch/bin/plugin install delete-by-query
+USER root
+RUN /usr/share/elasticsearch/bin/elasticsearch-plugin remove x-pack
+USER elasticsearch
