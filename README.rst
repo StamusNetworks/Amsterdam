@@ -1,3 +1,5 @@
+**This repository is archived as `SELKS <https://github.com/StamusNetworks/SELKS>`_ is now based on Docker**
+
 =========
 Amsterdam
 =========
